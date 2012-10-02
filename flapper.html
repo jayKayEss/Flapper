@@ -1,200 +1,62 @@
 <html>
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script src="./flapper.jquery.js"></script>
 <script language="javascript">
-(function($) {
-
-    var Flapper = function($ele, options) {
-	    console.log("2", options.commafy, options.zeropad);
-        var _this = this;
-        this.id = Math.floor(Math.random() * 1000) + 1;
-        this.$ele = $ele;
-        this.options = $.extend({}, this.defaults, options);
-        console.log("3", this.options.commafy, this.options.zeropad, this.id);
-        
-        this.$div = $('<div class="flapper"><div class="stripe"></div></div>');
-        this.$ele.hide().after(this.$div);
-        
-        this.$ele.change(function(){
-            console.log("4", _this.options.commafy, _this.options.zeropad, _this.id);
-            _this.update();
-        });
-        
-        this.init();
-    }
-    
-    Flapper.prototype = {
-        defaults: {
-            width: 6,
-            framerate: 100,
-            zeropad: true,
-            commafy: false,
-            prefix: null,
-            comma: ','
-        },
-        
-        init: function() {
-            this.currval = this.$ele.val() || 0;
-            this.$digits = [];
-            this.$commas = [];
-            this.pos_curr = this.getDigits(this.currval, this.options.width);
-            
-            for (i=0; i<this.options.width; i++) {
-                this.$digits[i] = $('<span class="digit">&nbsp;</span>');
-                this.$div.append(this.$digits[i]);
-
-                if (this.options.commafy) {
-                    var r_pos = this.options.width - i - 1;
-                    if (r_pos > 0 && r_pos % 3 == 0) {
-                        this.$commas[i] = $('<span class="digit comma">&nbsp;</span>');
-                        this.$div.append(this.$commas[i]);
-                    }
-                }
-            }
-
-            this.update();
-        },
-        
-        update: function() {
-            var _this = this;
-            var val = this.$ele.val();
-            this.pos_new = this.getDigits(val, this.options.width);
-
-            if (this.timer) {
-                clearInterval(this.timer);
-            }
-            
-            this.timer = setInterval(function(){
-                var changed = false;
-                var padding = true;
-                
-                for (i=0; i<_this.options.width; i++) {
-                    if (_this.pos_new[i] > 0) {
-                        padding = false;
-                    }
-                    
-                    if (_this.pos_curr[i] != _this.pos_new[i]) {
-                        _this.pos_curr[i]++;
-                        if (_this.pos_curr[i] > 9) {
-                            _this.pos_curr[i] -= 10;
-                        }
-                        
-                        changed = true;
-                    }
-
-                    if (_this.options.commafy && _this.$commas[i]) {
-                        if (!_this.options.zeropad && padding) {
-                            _this.$commas[i].hide();
-                        } else {
-                            _this.$commas[i].show().html(_this.options.comma);
-                        }
-                    }
-
-                    if (_this.pos_curr[i] == 0) {
-                        if (!_this.options.zeropad && padding) {
-                            if (_this.options.prefix && _this.pos_new[i+1] > 0) {
-                                _this.$digits[i].show().html(_this.options.prefix);
-                            } else {
-                                _this.$digits[i].hide();
-                            }
-                        } else {
-                            if (_this.options.prefix && i==0) {
-                                _this.$digits[i].show().html(_this.options.prefix);
-                            } else {
-                                _this.$digits[i].show().html(0);
-                            }
-                        }
-                    } else {
-                        _this.$digits[i].show().html(_this.pos_curr[i]);
-                    }
-                }
-                
-                if (!changed) {
-                    clearInterval(_this.timer);
-                }
-            }, this.options.framerate);
-        },
-        
-        getDigits: function(val, length) {
-            var ret = [];
-
-            while (length > 0) {
-                var num = val / Math.pow(10, length-1);
-                ret.push(Math.floor(num % 10));
-                length--;
-            }
-            
-            return ret;
-        },
-        
-        displayDigit: function(pos, val) {
-            this.$digits[pos].html(val);
-        }
-    }
-
-	$.fn.flapper = function(options) {
-	    console.log("1", options.commafy, options.zeropad);
-        this.each(function(){
-            new Flapper($(this), options);
-        })
-    }
-    
-})(jQuery);
-
 $(document).ready(function() {
     $('#counter1').flapper({
-        width: 9,
-        framerate: 100,
+        width: 11,
+        framerate: 150,
         commafy: true,
-        zeropad: true
+        padding: '0'
     });
 
     $('#counter2').flapper({
-        width: 9,
-        framerate: 100,
+        width: 11,
+        framerate: 150,
         commafy: true,
-        zeropad: false
+        padding: null
     });
 
     $('#counter3').flapper({
-        width: 9,
-        framerate: 100,
+        width: 11,
+        framerate: 150,
         commafy: false,
-        zeropad: true
+        padding: '0'
     });
 
     $('#counter4').flapper({
-        width: 9,
-        framerate: 100,
+        width: 11,
+        framerate: 150,
         commafy: false,
-        zeropad: false
+        padding: null
     });
 
     $('#counter5').flapper({
-        width: 9,
-        framerate: 100,
+        width: 11,
+        framerate: 150,
         commafy: true,
-        zeropad: false,
+        padding: '&nbsp;',
         prefix: '$'
     });
 
     $('#counter6').flapper({
-        width: 9,
-        framerate: 100,
+        width: 11,
+        framerate: 150,
         commafy: true,
-        zeropad: true,
+        padding: '0',
         prefix: '&euro;',
         comma: '&nbsp;'
     });
     
-    setInterval(function(){
+    setInterval(function(){ 
         $('.counter').each(function(){
             var digits = Math.floor((Math.random()*9)+1);
             var newval = Math.floor((Math.random()*(Math.pow(10, digits)-1))+1);
             // console.log(newval);
             $(this).val(newval).change();
         });
-    }, 3000)
+    }, 4000)
 });
 
 </script>
@@ -207,7 +69,6 @@ $(document).ready(function() {
     height: 90px;
     text-align: right;
     background-color: black;
-    background-image: url(number_bg.png);
     margin: 2px 0px;
     border: 10px solid black;
 }
@@ -221,6 +82,7 @@ $(document).ready(function() {
 }
 
 .flapper .digit {
+    background-image: url(number_bg.png);
     padding: 0px;
     margin: 0px;
     display: inline-block;
