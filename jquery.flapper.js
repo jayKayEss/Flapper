@@ -23,25 +23,24 @@
             padding: '&nbsp;',
             commafy: false,
             prefix: null,
-            hidepadding: false,
             comma: ','
         },
         
         init: function() {
-            this.currval = this.$ele.val() || 0;
             this.$digits = [];
             this.targets = [];
             this.positions = [];
+            this.hidepadding = false;
             
             if (this.options.padding == null) {
                 this.options.padding = '&nbsp;';
-                this.options.hidepadding = true;
+                this.hidepadding = true;
             }
             
             for (i=0; i<this.options.width; i++) {
-                this.$digits[i] = $('<span class="digit">'+this.options.padding+'</span>');
+                this.$digits[i] = $('<span class="digit"></span>').hide();
                 this.$div.prepend(this.$digits[i]);
-                this.positions[i] = this.options.padding;
+                this.setPadding(i);
             }
 
             this.update();
@@ -49,6 +48,7 @@
         
         update: function() {
             var _this = this;
+            
             if (this.timer) {
                 clearInterval(this.timer);
             }
@@ -61,13 +61,13 @@
                 for (var i=0; i<_this.options.width; i++) {
                     var current = _this.positions[i];
                     var target = _this.targets[i];
+                    var atzero = current == 0 || isNaN(current);
                     
                     if (current != target) {
-                        if (!target && current == 0) {
-                            _this.setDigit(i, _this.options.padding);
-                            _this.positions[i] = target;
+                        if (target == null && atzero) {
+                            _this.setPadding(i);
                             
-                        } else if (isNaN(target) && current == 0) {
+                        } else if (isNaN(target) && atzero) {
                             _this.setDigit(i, target);
                             
                         } else {
@@ -76,15 +76,19 @@
                         }
                     }
                 }
+
+                if (_this.hidepadding) {
+                    for (var i=_this.options.width-1; i>=0; i--) {
+                        if (_this.positions[i] == null) {
+                            _this.$digits[i].hide();
+                        } else {
+                            break;
+                        }
+                    }
+                }
                 
                 if (!changed) {
                     clearInterval(_this.timer);
-                    
-                    for (var i=0; i<_this.options.width; i++) {
-                        if (_this.targets[i] == null) {
-                            _this.$digits[i].hide();
-                        }
-                    }
                 }
                 
             }, this.options.framerate);
@@ -93,14 +97,13 @@
 
         setDisplayTargets: function() {
             var _this = this;
-            var val = this.$ele.val();
+            var val = Math.floor(this.$ele.val());
             var dnew = this.getDigits(val);
-            var padout = this.options.padding &&
-                this.options.padding != '&nbsp;';
+            var padout = this.options.padding != '&nbsp;' && !this.hidepadding;
             var prefixed = false;
             var i = 0;
             var d = 0;
-            
+
             do {
                 if (d < dnew.length || padout) {
                     if (_this.options.commafy && (i % 4 == 3)) {
@@ -131,7 +134,7 @@
                         
                     }
 
-                    if (_this.options.hidepadding) {
+                    if (_this.hidepadding) {
                         _this.targets[i] = null;
                     } else {
                         _this.targets[i] = _this.options.padding;
@@ -143,6 +146,7 @@
         
         incrementDigit: function(i) {
             var n = parseInt(this.positions[i], 10);
+            
             if (isNaN(n)) {
                 n = 0;
             } else {
@@ -152,13 +156,26 @@
                 }
             }
             
-            this.$digits[i].show().html(n+'');
+            this.$digits[i].html(n+'');
+            this.$digits[i].show();
             this.positions[i] = n;
         },
         
         setDigit: function(i, v) {
-            this.$digits[i].show().html(v);
+            this.$digits[i].html(v);
+            this.$digits[i].show();
             this.positions[i] = v;
+        },
+        
+        setPadding: function(i) {
+            this.$digits[i].html(this.options.padding);
+            
+            if (this.hidepadding) {
+                this.positions[i] = null;
+            } else {
+                this.$digits[i].show();
+                this.positions[i] = this.options.padding;
+            }
         },
         
         getDigits: function(val, length) {
