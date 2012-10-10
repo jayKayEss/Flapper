@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Flip Digits</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script src="transform/dist/jquery.transform-0.9.3.min.js"></script>
+        <script src="./jquery.flapper.js"></script>
+        <script language="javascript">
+            $(document).ready(function() {
+
+                FlapDigit = function($ele) {
+                    this.digits = ['&nbsp;', 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, '.', ',', ':', '$'];
+                    this.pos = 0;
+                    this.target = this.digits[0];
+                    this.interval = 150;
+                    this.timeout;
+                    this.animate = true;
+
+                    this.$prev = $ele.find('.front.top, .back.bottom');
+                    this.$next = $ele.find('.back.top, .front.bottom'); 
+                    this.$back_top = $ele.find('.back.top');
+                    this.$back_bottom = $ele.find('.back.bottom');
+                    this.$front_top = $ele.find('.front.top');
+                    this.$front_bottom = $ele.find('.front.bottom');
+
+                    this.initialize();
+                }
+
+                FlapDigit.prototype = {
+
+                    initialize: function() {
+                        this.$prev.html(this.digits[this.pos]);
+                        this.$next.html(this.digits[this.pos]);
+                        console.log(this);
+                    },
+
+                    increment: function() {
+                        var _this = this;
+
+                        var next = this.pos + 1;
+                        if (next >= this.digits.length) {
+                            next = 0;
+                        }
+
+                        this.$prev.show().html(this.digits[this.pos]);
+                        this.$next.hide().html(this.digits[next]);
+
+                        var speed1 = Math.floor(Math.random() * this.interval * .4 + this.interval * .4);
+                        var speed2 = Math.floor(Math.random() * this.interval * .1 + this.interval * .1);
+
+                        if (this.animate) {
+                            this.$back_top.show();
+                            this.$front_bottom.transform({ scaleY: 0.0 });
+                            this.$front_top.transform({ scaleY: 1.0 }).stop().show().animate({ scaleY: 0.0 }, speed1, 'linear', function(){
+                                _this.$front_bottom.stop().show().animate({ scaleY: 1.0 }, speed2, 'linear');
+                            });
+                        } else {
+                            this.$front_top.hide();
+                            this.$back_top.show();
+                            if (this.timeout) {
+                                clearTimeout(this.timeout);
+                            }
+                            this.timeout = setTimeout(function(){
+                                this.$back_bottom.hide();
+                                this.$front_bottom.show();
+                            }, speed);
+                        }
+
+                        this.pos = next;
+                    },
+
+                    cycleTo: function(pos) {
+                        var _this = this;
+
+                        if (this.interval_timer) {
+                            clearInterval(this.interval_timer);
+                            this.interval_timer = null;
+                        }
+
+                        this.interval_timer = setInterval(function(){
+                            if (_this.pos == pos) {
+                                clearInterval(_this.interval_timer);
+                                _this.interval_timer = null;
+                            } else {
+                                _this.increment();
+                            }
+                        }, this.interval);
+                    }
+                };
+
+                $('.display .digit').each(function() {
+                    var flap = new FlapDigit($(this));
+                    var rand = Math.floor(Math.random() * 9) + 1;
+                    flap.cycleTo(rand);
+
+                    setInterval(function() {
+                        var rand = Math.floor(Math.random() * 9) + 1;
+                        flap.cycleTo(rand);
+                    }, 10000);
+
+                });
+            });
+        </script>
+        <style type="text/css">
+
+            .display {
+                margin: 20px auto;
+                padding: 20px;
+                text-align: center;
+            }
+
+            .digit {
+                position: relative;
+                display: inline-block;
+                border: 2px solid #222;
+                border-radius: 8px;
+            }
+
+            .digit,
+            .digit div {
+                height: 128px;
+                width: 96px;
+                text-align: center;
+                background: black;
+                color: white;
+                margin: 0px;
+                padding: 0px;
+                font-family: Helvetica;
+                font-size: 128px;
+                line-height: 128px;
+            }
+    
+            .digit div {
+                position: absolute;
+                border-radius: 4px;
+            }
+
+            .digit .top {
+                top: 0px;
+                left: 0px;
+                overflow: hidden;
+                clip: rect(0px, 96px, 62px, 0px);
+                background-image: -webkit-gradient(linear, 0% 0%, 0% 30%, from(#444), to(#000));
+                background-image: -moz-linear-gradient(top, #444, #000, #000, #000, #000, #000);
+            }
+
+            .digit .bottom {
+                bottom: 0px;
+                left: 0px;
+                overflow: hidden;
+                clip: rect(66px, 96px, 128px, 0px); 
+                background-image: -webkit-gradient(linear, 0% 50%, 0% 80%, from(#444), to(#000));
+                background-image: -moz-linear-gradient(top, #000, #000, #444, #444, #000, #000);
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="display">
+            <div class="digit">
+                <div class="back top">&nbsp;</div>
+                <div class="back bottom">&nbsp;</div>
+                <div class="front top">&nbsp;</div>
+                <div class="front bottom">&nbsp;</div>
+            </div>
+            <div class="digit">
+                <div class="back top">&nbsp;</div>
+                <div class="back bottom">&nbsp;</div>
+                <div class="front top">&nbsp;</div>
+                <div class="front bottom">&nbsp;</div>
+            </div>
+            <div class="digit">
+                <div class="back top">&nbsp;</div>
+                <div class="back bottom">&nbsp;</div>
+                <div class="front top">&nbsp;</div>
+                <div class="front bottom">&nbsp;</div>
+            </div>
+            <div class="digit">
+                <div class="back top">&nbsp;</div>
+                <div class="back bottom">&nbsp;</div>
+                <div class="front top">&nbsp;</div>
+                <div class="front bottom">&nbsp;</div>
+            </div>
+            <div class="digit">
+                <div class="back top">&nbsp;</div>
+                <div class="back bottom">&nbsp;</div>
+                <div class="front top">&nbsp;</div>
+                <div class="front bottom">&nbsp;</div>
+            </div>
+        </div>
+    </body>
+</html>
+
