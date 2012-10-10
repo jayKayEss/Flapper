@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>Flip Digits</title>
+        <link href="css/flapper.css" type="text/css" rel="stylesheet" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
         <script src="transform/dist/jquery.transform-0.9.3.min.js"></script>
         <script src="./jquery.flapper.js"></script>
@@ -88,7 +89,7 @@
                     }
                 };
 
-                $('.display .digit').each(function() {
+                $('.flapper .digit').each(function() {
                     var flap = new FlapDigit($(this));
                     var rand = Math.floor(Math.random() * 9) + 1;
                     flap.cycleTo(rand);
@@ -103,60 +104,16 @@
         </script>
         <style type="text/css">
 
-            .display {
+            .flapper {
                 margin: 20px auto;
                 padding: 20px;
                 text-align: center;
             }
 
-            .digit {
-                position: relative;
-                display: inline-block;
-                border: 2px solid #222;
-                border-radius: 8px;
-            }
-
-            .digit,
-            .digit div {
-                height: 128px;
-                width: 96px;
-                text-align: center;
-                background: black;
-                color: white;
-                margin: 0px;
-                padding: 0px;
-                font-family: Helvetica;
-                font-size: 128px;
-                line-height: 128px;
-            }
-    
-            .digit div {
-                position: absolute;
-                border-radius: 4px;
-            }
-
-            .digit .top {
-                top: 0px;
-                left: 0px;
-                overflow: hidden;
-                clip: rect(0px, 96px, 62px, 0px);
-                background-image: -webkit-gradient(linear, 0% 0%, 0% 30%, from(#444), to(#000));
-                background-image: -moz-linear-gradient(top, #444, #000, #000, #000, #000, #000);
-            }
-
-            .digit .bottom {
-                bottom: 0px;
-                left: 0px;
-                overflow: hidden;
-                clip: rect(66px, 96px, 128px, 0px); 
-                background-image: -webkit-gradient(linear, 0% 50%, 0% 80%, from(#444), to(#000));
-                background-image: -moz-linear-gradient(top, #000, #000, #444, #444, #000, #000);
-            }
-
         </style>
     </head>
     <body>
-        <div class="display">
+        <div class="flapper light XXL">
             <div class="digit">
                 <div class="back top">&nbsp;</div>
                 <div class="back bottom">&nbsp;</div>
@@ -187,6 +144,8 @@
                 <div class="front top">&nbsp;</div>
                 <div class="front bottom">&nbsp;</div>
             </div>
+        </div>
+        <div class="flapper dark XXL">
             <div class="digit">
                 <div class="back top">&nbsp;</div>
                 <div class="back bottom">&nbsp;</div>
