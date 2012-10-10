@@ -45,13 +45,13 @@
                         this.$prev.show().html(this.digits[this.pos]);
                         this.$next.hide().html(this.digits[next]);
 
-                        var speed1 = Math.floor(Math.random() * this.interval * .4 + this.interval * .4);
-                        var speed2 = Math.floor(Math.random() * this.interval * .1 + this.interval * .1);
+                        var speed1 = Math.floor(Math.random() * this.interval * .4 + this.interval * .3);
+                        var speed2 = Math.floor(Math.random() * this.interval * .1 + this.interval * .2);
 
                         if (this.animate) {
                             this.$back_top.show();
                             this.$front_bottom.transform({ scaleY: 0.0 });
-                            this.$front_top.transform({ scaleY: 1.0 }).stop().show().animate({ scaleY: 0.0 }, speed1, 'linear', function(){
+                            this.$front_top.transform({ scaleY: 1.0 }).stop().show().animate({ scaleY: 0.0 }, speed1, 'swing', function(){
                                 _this.$front_bottom.stop().show().animate({ scaleY: 1.0 }, speed2, 'linear');
                             });
                         } else {
@@ -157,6 +157,36 @@
     </head>
     <body>
         <div class="display">
+            <div class="digit">
+                <div class="back top">&nbsp;</div>
+                <div class="back bottom">&nbsp;</div>
+                <div class="front top">&nbsp;</div>
+                <div class="front bottom">&nbsp;</div>
+            </div>
+            <div class="digit">
+                <div class="back top">&nbsp;</div>
+                <div class="back bottom">&nbsp;</div>
+                <div class="front top">&nbsp;</div>
+                <div class="front bottom">&nbsp;</div>
+            </div>
+            <div class="digit">
+                <div class="back top">&nbsp;</div>
+                <div class="back bottom">&nbsp;</div>
+                <div class="front top">&nbsp;</div>
+                <div class="front bottom">&nbsp;</div>
+            </div>
+            <div class="digit">
+                <div class="back top">&nbsp;</div>
+                <div class="back bottom">&nbsp;</div>
+                <div class="front top">&nbsp;</div>
+                <div class="front bottom">&nbsp;</div>
+            </div>
+            <div class="digit">
+                <div class="back top">&nbsp;</div>
+                <div class="back bottom">&nbsp;</div>
+                <div class="front top">&nbsp;</div>
+                <div class="front bottom">&nbsp;</div>
+            </div>
             <div class="digit">
                 <div class="back top">&nbsp;</div>
                 <div class="back bottom">&nbsp;</div>
