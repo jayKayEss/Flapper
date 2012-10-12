@@ -1,8 +1,13 @@
 /* STRUCTURAL STYLES */
 
+.flapper {
+    font-family: Helvetica, Arial, sans-serif;
+}
+
 .flapper .digit {
     position: relative;
     display: inline-block;
+    margin: 0px 1px 0px 1px;
 }
 
 .flapper .digit div {
@@ -26,6 +31,10 @@
 
 /* XXL 96x128 */
 
+.flapper.XXL .digit {
+    border-radius: 6px;
+}
+
 .flapper.XXL .digit,
 .flapper.XXL .digit div {
     height: 128px;
@@ -35,14 +44,18 @@
 }
 
 .flapper.XXL .digit .top {
-    clip: rect(0px, 96px, 62px, 0px);
+    clip: rect(0px, 96px, 63px, 0px);
 }
 
 .flapper.XXL .digit .bottom {
-    clip: rect(66px, 96px, 128px, 0px); 
+    clip: rect(65px, 96px, 128px, 0px); 
 }
 
 /* XL 72x96 */
+
+.flapper.XL .digit {
+    border-radius: 5px;
+}
 
 .flapper.XL .digit,
 .flapper.XL .digit div {
@@ -53,34 +66,62 @@
 }
 
 .flapper.XL .digit .top {
-    clip: rect(0px, 72px, 46px, 0px);
+    clip: rect(0px, 72px, 47px, 0px);
 }
 
 .flapper.XL .digit .bottom {
-    clip: rect(48px, 72px, 96px, 0px); 
+    clip: rect(49px, 72px, 96px, 0px); 
 }
 
 /* L 54x72 */
 
+.flapper.L .digit {
+    border-radius: 4px;
+}
+
+.flapper.L .digit,
+.flapper.L .digit div {
+    height: 72px;
+    width: 54px;
+    font-size: 72px;
+    line-height: 72px;
+}
+
+.flapper.L .digit .top {
+    clip: rect(0px, 54px, 35px, 0px);
+}
+
+.flapper.L .digit .bottom {
+    clip: rect(37px, 54px, 72px, 0px); 
+}
+
 /* M 40x54 (default) */
+
+.flapper .digit {
+    border-radius: 3px;
+}
 
 .flapper .digit,
 .flapper .digit div {
     height: 54px;
-    width: 45px;
+    width: 40px;
     font-size: 54px;
     line-height: 54px;
 }
 
 .flapper .digit .top {
-    clip: rect(0px, 45px, 26px, 0px);
+    clip: rect(0px, 40px, 26px, 0px);
 }
 
 .flapper .digit .bottom {
-    clip: rect(28px, 45px, 54px, 0px); 
+    clip: rect(27px, 40px, 54px, 0px); 
 }
 
 /* S 30x40 */
+
+.flapper.S .digit {
+    border-radius: 2px;
+}
 
 .flapper.S .digit,
 .flapper.S .digit div {
@@ -95,10 +136,14 @@
 }
 
 .flapper.S .digit .bottom {
-    clip: rect(21px, 30px, 40px, 0px); 
+    clip: rect(20px, 30px, 40px, 0px); 
 }
 
 /* XS 24x30 */
+
+.flapper.XS .digit {
+    border-radius: 1px;
+}
 
 .flapper.XS .digit,
 .flapper.XS .digit div {
@@ -122,20 +167,13 @@
 
 .flapper .digit {
     border: 2px solid #222;
-    border-radius: 8px;
 }
 
 .flapper .digit,
 .flapper .digit div {
-    background: black;
+    background-color: black;
     color: white;
-    margin: 0px;
     padding: 0px;
-    font-family: Helvetica, Arial, sans-serif;
-}
-
-.flapper .digit div {
-    border-radius: 4px;
 }
 
 .flapper .digit .top {
@@ -152,20 +190,16 @@
 
 .flapper.light .digit {
     border: 2px solid #eee;
-    border-radius: 8px;
 }
 
 .flapper.light .digit,
 .flapper.light .digit div {
-    background: white;
+    background-color: white;
     color: black;
-    margin: 0px;
     padding: 0px;
-    font-family: Helvetica, Arial, sans-serif;
 }
 
 .flapper.light .digit div {
-    border-radius: 4px;
 }
 
 .flapper.light .digit .top {

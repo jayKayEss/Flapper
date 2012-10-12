@@ -6,7 +6,8 @@
         this.$ele = $ele;
         this.options = $.extend({}, this.defaults, options);
         
-        this.$div = $('<div class="flapper"></div>');
+        this.$div = $('<div></div>');
+        this.$div.attr('class', 'flapper ' + this.$ele.attr('class'));
         this.$ele.hide().after(this.$div);
         
         this.$ele.change(function(){
@@ -19,11 +20,10 @@
     Flapper.prototype = {
         defaults: {
             width: 6,
-            framerate: 100,
+            timing: 100,
+            format: null,
+            align: 'right',
             padding: '&nbsp;',
-            commafy: false,
-            prefix: null,
-            comma: ',',
             digits: {}
         },
         
@@ -32,7 +32,7 @@
             
             for (i=0; i<this.options.width; i++) {
                 this.digits[i] = new FlapDigit(null, this.options.digits);
-                this.$div.prepend(this.digits[i].$ele);
+                this.$div.append(this.digits[i].$ele);
             }
 
             this.update();
@@ -42,20 +42,37 @@
             var value = this.$ele.val();
             var digits = this.getDigits(value);
 
-//            console.log('START', this.$ele, digits.length, digits);
             for (var i=0; i<this.digits.length; i++) {
-//                console.log('LOOP', i, digits[i]);
                 this.digits[i].goToChar(digits[i]);
             }
         },
 
         getDigits: function(val, length) {
             var strval = val + '';
+
+            if (this.options.format) {
+                strval = $.formatNumber(val, this.options.format);
+            }
+
             var digits = strval.split('');
 
-//            console.log('GETDIGITS', val, length, strval, digits);
+            if (digits.length < this.options.width) {
+                while (digits.length < this.options.width) {
+                    if (this.options.align == 'left') {
+                        digits.push(this.options.padding);
+                    } else {
+                        digits.unshift(this.options.padding);
+                    }
+                }
+            } else if (digits.length > this.options.width) {
+                var overage = digits.length - this.options.width;
+                if (this.options.align == 'left') {
+                    digits.splice(-1, overage);
+                } else {
+                    digits.splice(0, overage);
+                }
+            }
 
-            // TODO: pad/truncate to correct width
             return digits;
         },
     }
@@ -65,7 +82,6 @@
 
         this.pos = 0;
         this.timeout;
-        this.options.animate = true;
 
         if (!$ele) {
             this.$ele = $(this.htmlTemplate);
@@ -87,8 +103,8 @@
 
         defaults: {
             chars: ['&nbsp;', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.', ',', ':', '$'],
-            framerate: 150,
-            animate: true
+            timing: 150,
+            animation: 'slow'
         },
 
         initialize: function() {
@@ -102,8 +118,6 @@
             '<div class="front bottom">&nbsp;</div></div>',
 
         increment: function() {
-            var _this = this;
-
             var next = this.pos + 1;
             if (next >= this.options.chars.length) {
                 next = 0;
@@ -112,61 +126,97 @@
             this.$prev.show().html(this.options.chars[this.pos]);
             this.$next.hide().html(this.options.chars[next]);
 
-            var speed1 = Math.floor(Math.random() * this.options.framerate * .4 + this.options.framerate * .3);
-            var speed2 = Math.floor(Math.random() * this.options.framerate * .1 + this.options.framerate * .2);
+            var speed1 = Math.floor(Math.random() * this.options.timing * .4 + this.options.timing * .3);
+            var speed2 = Math.floor(Math.random() * this.options.timing * .1 + this.options.timing * .2);
 
-            if (this.options.animate) {
-                this.$back_top.show();
-                this.$front_bottom.transform({ scaleY: 0.0 });
-                this.$front_top.transform({ scaleY: 1.0 }).stop().show().animate({ scaleY: 0.0 }, speed1, 'swing', function(){
-                    _this.$front_bottom.stop().show().animate({ scaleY: 1.0 }, speed2, 'linear');
-                });
+            if (this.options.animation == 'fast') {
+                this.animateFast(speed1, speed2);
+            } else if (this.options.animation == 'medium') {
+                this.animateMedium(speed1, speed2);
             } else {
-                this.$front_top.hide();
-                this.$back_top.show();
-                if (this.timeout) {
-                    clearTimeout(this.timeout);
-                }
-                this.timeout = setTimeout(function(){
-                    this.$back_bottom.hide();
-                    this.$front_bottom.show();
-                }, speed);
+                this.animateSlow(speed1, speed2);
             }
 
             this.pos = next;
         },
 
+        animateSlow: function(speed1, speed2) {
+            var _this = this;
+
+            this.$back_top.show();
+            this.$front_bottom.transform({ scaleY: 0.0 });
+            this.$front_top.transform({ scaleY: 1.0 }).stop().show().animate({ scaleY: 0.0 }, speed1, 'swing', function(){
+                _this.$front_bottom.stop().show().animate({ scaleY: 1.0 }, speed2, 'linear');
+            });
+        },
+
+        animateMedium: function(speed1, speed2) {
+            var _this = this;
+
+            if (this.timeout) {
+                clearTimeout(this.timeout);
+            }
+
+            this.$back_top.show();
+
+            this.timeout = setTimeout(function(){
+                _this.$front_top.transform({ scaleY: 0.5 });
+                this.timeout = setTimeout(function(){
+                    _this.$front_top.hide().transform({ scaleY: 1.0 });
+                    this.timeout = setTimeout(function(){
+                        _this.$front_bottom.transform({ scaleY: 0.5 }).show();
+
+                        this.timeout = setTimeout(function(){
+                            _this.$front_bottom.transform({ scaleY: 1.0 });
+                        }, speed2/2);
+                    }, speed2/2);
+                }, speed1/2);
+            }, speed1/2);
+        },
+
+        animateFast: function(speed1, speed2) {
+            var _this = this;
+
+            if (this.timeout) {
+                clearTimeout(this.timeout);
+            }
+
+            this.timeout = setTimeout(function(){
+                _this.$front_top.hide();
+                _this.$back_top.show();
+
+                this.timeout = setTimeout(function(){
+                    _this.$back_bottom.hide();
+                    _this.$front_bottom.show();
+                }, speed2);
+            }, speed1);
+        },
+
         goToPosition: function(pos) {
             var _this = this;
 
-            if (this.options.framerate_timer) {
-                clearInterval(this.options.framerate_timer);
-                this.options.framerate_timer = null;
+            if (this.options.timing_timer) {
+                clearInterval(this.options.timing_timer);
+                this.options.timing_timer = null;
             }
 
-            this.options.framerate_timer = setInterval(function(){
+            this.options.timing_timer = setInterval(function(){
                 if (_this.pos == pos) {
-                    clearInterval(_this.options.framerate_timer);
-                    _this.options.framerate_timer = null;
+                    clearInterval(_this.options.timing_timer);
+                    _this.options.timing_timer = null;
                 } else {
                     _this.increment();
                 }
-            }, this.options.framerate);
+            }, this.options.timing);
         },
 
         goToChar: function(char) {
-//            if (char =~ /^\s+$/) {
-//                char = '&nbsp;';
-//            }
-
-//            console.log(char, this.options.chars);
             var pos = this.options.chars.lastIndexOf(char);
             
             if (pos == -1) {
                 pos = 0;
             }
 
-//            console.log('GO TO CHAR', char, pos);
             this.goToPosition(pos);
         }
     };
