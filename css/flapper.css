@@ -1,7 +1,7 @@
 /* STRUCTURAL STYLES */
 
 .flapper {
-    font-family: Helvetica, Arial, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .flapper .digit {
@@ -31,6 +31,12 @@
 
 /* XXL 96x128 */
 
+.flapper.XXL {
+    font-size: 128px;
+    line-height: 128px;
+    height: 132px;
+}
+
 .flapper.XXL .digit {
     border-radius: 6px;
 }
@@ -39,8 +45,8 @@
 .flapper.XXL .digit div {
     height: 128px;
     width: 96px;
-    font-size: 128px;
-    line-height: 128px;
+    font-size: inherit;
+    line-height: inherit;
 }
 
 .flapper.XXL .digit .top {
@@ -53,6 +59,12 @@
 
 /* XL 72x96 */
 
+.flapper.XL {
+    font-size: 96px;
+    line-height: 96px;
+    height: 100px;
+}
+
 .flapper.XL .digit {
     border-radius: 5px;
 }
@@ -61,8 +73,8 @@
 .flapper.XL .digit div {
     height: 96px;
     width: 72px;
-    font-size: 96px;
-    line-height: 96px;
+    font-size: inherit;
+    line-height: inherit;
 }
 
 .flapper.XL .digit .top {
@@ -75,6 +87,12 @@
 
 /* L 54x72 */
 
+.flapper.L {
+    font-size: 72px;
+    line-height: 72px;
+    height: 76px;
+}
+
 .flapper.L .digit {
     border-radius: 4px;
 }
@@ -83,8 +101,8 @@
 .flapper.L .digit div {
     height: 72px;
     width: 54px;
-    font-size: 72px;
-    line-height: 72px;
+    font-size: inherit;
+    line-height: inherit;
 }
 
 .flapper.L .digit .top {
@@ -97,6 +115,12 @@
 
 /* M 40x54 (default) */
 
+.flapper {
+    font-size: 54px;
+    line-height: 54px;
+    height: 58px;
+}
+
 .flapper .digit {
     border-radius: 3px;
 }
@@ -105,8 +129,8 @@
 .flapper .digit div {
     height: 54px;
     width: 40px;
-    font-size: 54px;
-    line-height: 54px;
+    font-size: inherit;
+    line-height: inherit;
 }
 
 .flapper .digit .top {
@@ -119,6 +143,12 @@
 
 /* S 30x40 */
 
+.flapper.S {
+    font-size: 40px;
+    line-height: 40px;
+    height: 44px;
+}
+
 .flapper.S .digit {
     border-radius: 2px;
 }
@@ -127,8 +157,8 @@
 .flapper.S .digit div {
     height: 40px;
     width: 30px;
-    font-size: 40px;
-    line-height: 40px;
+    font-size: inherit;
+    line-height: inherit;
 }
 
 .flapper.S .digit .top {
@@ -141,6 +171,12 @@
 
 /* XS 24x30 */
 
+.flapper.XS {
+    font-size: 30px;
+    line-height: 30px;
+    height: 34px;
+}
+
 .flapper.XS .digit {
     border-radius: 1px;
 }
@@ -149,8 +185,8 @@
 .flapper.XS .digit div {
     height: 30px;
     width: 24px;
-    font-size: 30px;
-    line-height: 30px;
+    font-size: inherit;
+    line-height: inherit;
 }
 
 .flapper.XS .digit .top {
@@ -166,7 +202,7 @@
 /* DARK (default) */
 
 .flapper .digit {
-    border: 2px solid #222;
+    border: 2px solid #111;
 }
 
 .flapper .digit,
@@ -177,24 +213,36 @@
 }
 
 .flapper .digit .top {
-    background-image: -webkit-gradient(linear, 0% 0%, 0% 30%, from(#444), to(#000));
-    background-image: -moz-linear-gradient(top, #444, #222, #000, #000, #000, #000);
+    background: #222222; /* Old browsers */
+    background: -moz-linear-gradient(top,  #222222 1%, #000000 20%, #000000 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#222222), color-stop(20%,#000000), color-stop(100%,#000000)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #222222 1%,#000000 20%,#000000 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #222222 1%,#000000 20%,#000000 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #222222 1%,#000000 20%,#000000 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #222222 1%,#000000 20%,#000000 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#222222', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
 }
 
 .flapper .digit .bottom {
-    background-image: -webkit-gradient(linear, 0% 50%, 0% 80%, from(#444), to(#000));
-    background-image: -moz-linear-gradient(top, #000, #000, #444, #444, #222, #000);
+    background: #222222; /* Old browsers */
+    background: -moz-linear-gradient(top,  #222222 50%, #000000 70%, #000000 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(50%,#222222), color-stop(70%,#000000), color-stop(100%,#000000)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #222222 50%,#000000 70%,#000000 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #222222 50%,#000000 70%,#000000 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #222222 50%,#000000 70%,#000000 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #222222 50%,#000000 70%,#000000 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#222222', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
 }
 
 /* LIGHT */
 
 .flapper.light .digit {
-    border: 2px solid #eee;
+    border: 2px solid #ccc;
 }
 
 .flapper.light .digit,
 .flapper.light .digit div {
-    background-color: white;
+    background-color: #eee;
     color: black;
     padding: 0px;
 }
@@ -203,12 +251,24 @@
 }
 
 .flapper.light .digit .top {
-    background-image: -webkit-gradient(linear, 0% 0%, 0% 60%, from(#fff), to(#bbb));
-    background-image: -moz-linear-gradient(top, #fff, #eee, #ccc, #ddd, #ddd, #ddd);
+    background: #eeeeee; /* Old browsers */
+    background: -moz-linear-gradient(top,  #eeeeee 1%, #ffffff 20%, #dddddd 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#eeeeee), color-stop(20%,#ffffff), color-stop(100%,#dddddd)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #eeeeee 1%,#ffffff 20%,#dddddd 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #eeeeee 1%,#ffffff 20%,#dddddd 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #eeeeee 1%,#ffffff 20%,#dddddd 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #eeeeee 1%,#ffffff 20%,#dddddd 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#dddddd',GradientType=0 ); /* IE6-9 */
 }
 
 .flapper.light .digit .bottom {
-    background-image: -webkit-gradient(linear, 0% 60%, 0% 100%, from(#fff), to(#bbb));
-    background-image: -moz-linear-gradient(top, #ccc, #ccc, #fff, #fff, #eee, #ccc);
+    background: #eeeeee; /* Old browsers */
+    background: -moz-linear-gradient(top,  #eeeeee 50%, #ffffff 60%, #dddddd 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(50%,#eeeeee), color-stop(60%,#ffffff), color-stop(100%,#dddddd)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #eeeeee 50%,#ffffff 60%,#dddddd 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #eeeeee 50%,#ffffff 60%,#dddddd 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #eeeeee 50%,#ffffff 60%,#dddddd 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #eeeeee 50%,#ffffff 60%,#dddddd 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#dddddd',GradientType=0 ); /* IE6-9 */
 }
 

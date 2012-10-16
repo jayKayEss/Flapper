@@ -10,7 +10,7 @@
         this.$div.attr('class', 'flapper ' + this.$ele.attr('class'));
         this.$ele.hide().after(this.$div);
         
-        this.$ele.change(function(){
+        this.$ele.bind('change.flapper', function(){
             _this.update();
         });
         
@@ -20,7 +20,6 @@
     Flapper.prototype = {
         defaults: {
             width: 6,
-            timing: 100,
             format: null,
             align: 'right',
             padding: '&nbsp;',
@@ -80,6 +79,10 @@
     FlapDigit = function($ele, opts) {
         this.options = $.extend({}, this.defaults, opts);
 
+        if (!this.options.chars) {
+            this.options.chars = this.presets[this.options.chars_preset];
+        }
+
         this.pos = 0;
         this.timeout;
 
@@ -102,9 +105,16 @@
     FlapDigit.prototype = {
 
         defaults: {
-            chars: ['&nbsp;', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.', ',', ':', '$'],
+            chars_preset: 'num',
             timing: 150,
             animation: 'slow'
+        },
+
+        presets: {
+            num: ['&nbsp;', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.', ',', ':', '$'],
+            alpha: ['&nbsp;','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'],
+            alphanum: ['&nbsp;','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
+                '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.', ',', ':', '$'],
         },
 
         initialize: function() {
@@ -224,7 +234,9 @@
 	$.fn.flapper = function(options) {
         this.each(function(){
             new Flapper($(this), options);
-        })
+        });
+
+        return this;
     }
     
 })(jQuery);

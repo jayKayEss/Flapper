@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>FLAPPER</title>
+        <link href="http://fonts.googleapis.com/css?family=BenchNine:700" type="text/css" rel="stylesheet" />
+        <link href="css/flapper.css" type="text/css" rel="stylesheet" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script src="transform/dist/jquery.transform-0.9.3.min.js"></script>
+        <script src="jshashtable-2.1/jshashtable.js"></script>
+        <script src="numberformatter/jquery.numberformatter-1.2.3.min.js"></script>
+        <script src="src/jquery.flapper.js"></script>
+        <script language="javascript">
+            $(document).ready(function() {
+                var $header_display = $('#header_display');
+                $header_display.flapper({
+                    width: 7,
+                    digits: {
+                        chars_preset: 'alpha',
+                        animation: 'slow',
+                        timing: 100
+                    }
+                });
+
+                setTimeout(function(){
+                    $header_display.val('FLAPPER').change();
+                    var toggle = true;
+                    setInterval(function(){
+                        if (toggle) {
+                            $header_display.val('FLAPPER').change();
+                        } else {
+                            $header_display.val('').change();
+                        }
+                        toggle = !toggle;
+                    }, 7000);
+                }, 1000);
+
+                $('#size_demo input').flapper({
+                    width: 1,
+                    digits: {
+                        chars: ['9']
+                    }
+                });
+
+                var $demo_slow = $('#animation_demo input.slow');
+                var $demo_medium = $('#animation_demo input.medium');
+                var $demo_fast = $('#animation_demo input.fast');
+
+                var demo_timing = 500;
+                var demo_chars = ['&nbsp;','0','1','2','3','4','5','6','7','8','9'];
+
+                $demo_slow.flapper({
+                    width: 1,
+                    digits: {
+                        chars: demo_chars,
+                        timing: demo_timing,
+                        animation: 'slow'
+                    }
+                });
+                
+                $demo_medium.flapper({
+                    width: 1,
+                    digits: {
+                        chars: demo_chars,
+                        timing: demo_timing,
+                        animation: 'medium'
+                    }
+                });
+                
+                $demo_fast.flapper({
+                    width: 1,
+                    digits: {
+                        chars: demo_chars,
+                        timing: demo_timing,
+                        animation: 'fast'
+                    }
+                });
+
+                $('#animation_demo button.play').click(function(){
+                    var $demos = $('#animation_demo input');
+                    $demos.val(9).change();
+                    setTimeout(function(){
+                        $demos.val('').change();
+                    }, 7000);
+                });
+
+            });
+        </script>
+        <style type="text/css">
+
+            html,
+            body {
+                margin: 0px;
+                padding: 0px;
+                overflow-x: hidden;
+                background-color: white;
+                font-family: Helvetica, Arial, sans-serif;
+            }
+
+            #banner {
+                margin: 0px 0px 24px 0px;
+                padding: 24px;
+                background-color: #111;
+                background-image: url(img/brushed.png);
+                border-bottom: 2px solid black;
+                text-align: center;
+            }
+
+            .header.flapper {
+                font-family: BenchNine;
+                line-height: 139px;
+            }
+
+            #content {
+                width: 800px;
+                margin: 0px auto;
+            }
+
+            .section {
+                clear: both;
+                margin: 0px 0px 56px 0px;
+            }
+
+            h1 {
+                font-size: 18pt;
+                margin: 56px 0px 56px 0px;
+                line-height: 1.4em;
+            }
+
+            h2 {
+                font-size: 14pt;
+                margin: 0px 0px 12px 0px;
+                line-height: 1.4em;
+            }
+
+            p {
+                line-height: 1.8em;
+                margin: 0px 0px 24px 0px;
+            }
+
+            a {
+                color: #555;
+                font-weight: bold;
+                text-decoration: none;
+            }
+
+            .links {
+                position: relative;
+                width: 176px;
+                height: 78px;
+                float: right;
+                margin: 0px 0px 24px 24px;
+                padding: 22px 0px 0px 90px;
+                background: #eee;
+            }
+
+            .links img {
+                position: absolute;
+                top: 16px;
+                left: 16px;
+                margin: 0px 16px 0px 0px;
+                vertical-align: baseline;
+            }
+
+            .links a {
+                margin: 4px 0px;
+                font-size: 14pt;
+                line-height: 22px;
+                font-weight: bold;
+                color: #333;
+                text-decoration: none;
+                display: block;
+            }
+
+            .snippet {
+                margin: 36px 0px;
+                padding: 16px;
+                background: #eee;
+                border-width: 2px;
+                border-color: #ddd;
+                border-style: dashed;
+            }
+
+            #size_demo {
+                margin: 56px 0px 0px 0px;
+            }
+
+            #size_demo .display {
+                display: inline-block;
+            }
+
+            #animation_demo {
+                float: left;
+                margin: 6px 24px 56px 0px;
+            }
+
+            #animation_demo div.display {
+                display: inline-block;
+            }
+
+            #animation_demo label {
+                display: block;
+                font-size: 8pt;
+                color: #333;
+                text-align: center;
+            }
+
+            #animation_demo .button {
+                text-align: center;
+                margin: 8px 0px 0px 0px;
+            }
+
+            #animation_demo button {
+                width: 100px;
+                color: white;
+                border: 2px solid #3c0702;
+                font-family: Helvetica, Arial, sans-serif;
+                font-weight: bold;
+                font-size: 10pt;
+                letter-spacing: .3em;
+                text-transform: uppercase;
+                text-shadow: 0px 0px 4px black;
+                border-radius: 4px;
+                padding: 8px;
+                background: #a81e03; /* Old browsers */
+                background: -moz-linear-gradient(top,  #a81e03 0%, #8e1a02 44%, #6b1100 100%); /* FF3.6+ */
+                background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#a81e03), color-stop(44%,#8e1a02), color-stop(100%,#6b1100)); /* Chrome,Safari4+ */
+                background: -webkit-linear-gradient(top,  #a81e03 0%,#8e1a02 44%,#6b1100 100%); /* Chrome10+,Safari5.1+ */
+                background: -o-linear-gradient(top,  #a81e03 0%,#8e1a02 44%,#6b1100 100%); /* Opera 11.10+ */
+                background: -ms-linear-gradient(top,  #a81e03 0%,#8e1a02 44%,#6b1100 100%); /* IE10+ */
+                background: linear-gradient(to bottom,  #a81e03 0%,#8e1a02 44%,#6b1100 100%); /* W3C */
+                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a81e03', endColorstr='#6b1100',GradientType=0 ); /* IE6-9 */
+            }
+            
+            #animation_demo button:active {
+                position: relative;
+                top: 1px;
+                left: 1px;
+                background: #8c1702; /* Old browsers */
+                background: -moz-linear-gradient(top,  #8c1702 0%, #721502 44%, #4c0a00 100%); /* FF3.6+ */
+                background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#8c1702), color-stop(44%,#721502), color-stop(100%,#4c0a00)); /* Chrome,Safari4+ */
+                background: -webkit-linear-gradient(top,  #8c1702 0%,#721502 44%,#4c0a00 100%); /* Chrome10+,Safari5.1+ */
+                background: -o-linear-gradient(top,  #8c1702 0%,#721502 44%,#4c0a00 100%); /* Opera 11.10+ */
+                background: -ms-linear-gradient(top,  #8c1702 0%,#721502 44%,#4c0a00 100%); /* IE10+ */
+                background: linear-gradient(to bottom,  #8c1702 0%,#721502 44%,#4c0a00 100%); /* W3C */
+                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8c1702', endColorstr='#4c0a00',GradientType=0 ); /* IE6-9 */
+            }
+
+            /* Greetz @deadlyicon
+             * https://gist.github.com/2191622
+             */
+            #fork-me {
+                width: 180px;
+                height: 150px;
+                position: absolute;
+                top: 0px;
+                right: 0px;
+                overflow: hidden;
+            }
+
+            #fork-me a {
+                display: block;
+                position: absolute;
+                top: 35px;
+                right: -75px;
+                padding: 0.75em 4em;
+                background: #881c15;
+                -webkit-transform: rotate(40deg);
+                -moz-transform:rotate(40deg);
+                -o-transform:rotate(40deg);
+                -ms-transform:rotate(40deg);
+                color: white !important;
+                font-weight: bold;
+                font-family: helvetica;
+                text-decoration: none;
+                border: 1px solid white;
+                box-shadow: 0 0 10px black;
+                text-shadow: 0 0 10px black;
+                white-space: nowrap;
+            }
+
+            #footer {
+                margin: 24px 0px 0px 0px;
+                padding: 36px 14px 36px 14px;
+                color: white;
+                background-color: #111;
+                background-image: url(img/brushed.png);
+                border-top: 2px solid black;
+                text-align: center;
+                text-shadow: 2px 2px 4px black;
+            }
+
+            #footer h2 {
+                font-size: 12pt;
+                font-weight: normal;
+            }
+
+            #footer p {
+                color: #ccc;
+                font-size: 9pt;
+            }
+
+            #footer a {
+                color: #aaa;
+                text-decoration: none;
+                font-weight: bold;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div id="banner">
+            <div class="display">
+                <input class="header dark XXL" id="header_display" />
+            </div>
+        </div>
+        <div id="content">
+
+            <div class="section">
+
+                <h1>Flapper is a jQuery plugin that replicates the
+                    split-flap (or "Solari") displays that used to be common in train stations and airports.</h1>
+
+                <div class="links">
+                    <img src="img/download.png" />
+                    <a href="https://github.com/jayKayEss/Flapper/zipball/master">Download .zip</a>
+                    <a href="https://github.com/jayKayEss/Flapper/tarball/master">Download .tar.gz</a>
+                </div>
+
+                <p>These displays used a rotating stack of letters and numbers printed on hinged panels. As the stack
+                rotated, a new symbol would fall into place. Flapper recreates this effect using CSS transformations.</p>
+
+                <p>Flapper can display words or numbers, with or without formatting. It's ready to use with six sizes,
+                two color themes, and three animation styles. Best of all, it's written entirely in HTML and CSS,
+                so you can make it look however you'd like.</p>
+
+                <p>For best results, Flapper requires the <a href="http://code.google.com/p/jquery-numberformatter/">numberformatter</a>
+                and <a href="https://github.com/heygrady/transform/wiki">transform</a> jQuery plugins. But, it can also
+                be used on its own with fewer special effects.</p>
+
+            </div>
+
+            <div class="section">
+
+                <div id="animation_demo">
+                    <div class="display slow"><input class="slow L" /><label>slow</label></div>
+                    <div class="display medium"><input class="medium L" /><label>medium</label></div>
+                    <div class="display fast"><input class="fast L" /><label>fast</label></div>
+                    <div class="button"><button class="play">Play</button></div>
+                </div>
+                
+                <h2>Three Animation Effects</h2>
+
+                <p>Flapper's three animation modes allow you to design with special effects without affecting the performance
+                of your page.  Choose from gorgeous, detailed animations, quick minimalistic animations, or something in-between.</p>
+
+            </div>
+
+            <div class="section">
+
+                <h2>Words and Numbers</h2>
+
+                <p>Flapper can display any text or numeric sequence.  It comes with presets for numeric, alphabetic, and alphanumeric
+                displays. You can configure Flapper to display any symbols or international characters that you require.</p>
+
+            </div>
+
+            <div class="section">
+
+                <h2>Six Sizes and Two Colors</h2>
+
+                <p>Flapper comes with six size presets and two color schemes, so you can quickly drop it into your page.</p>
+
+                <div id="size_demo">
+                    <div class="display"><input class="dark XXL" value="9" /></div>
+                    <div class="display"><input class="dark XL" value="9" /></div>
+                    <div class="display"><input class="dark L" value="9" /></div>
+                    <div class="display"><input class="dark M" value="9" /></div>
+                    <div class="display"><input class="dark S" value="9" /></div>
+                    <div class="display"><input class="dark XS" value="9" /></div>
+                    <div class="display"><input class="light XXL" value="9" /></div>
+                    <div class="display"><input class="light XL" value="9" /></div>
+                    <div class="display"><input class="light L" value="9" /></div>
+                    <div class="display"><input class="light M" value="9" /></div>
+                    <div class="display"><input class="light S" value="9" /></div>
+                    <div class="display"><input class="light XS" value="9" /></div>
+                </div>
+
+            </div>
+
+            <div class="section">
+            
+                <h2>Themeable</h2>
+
+                <p>Customize Flapper with your own fonts, colors, and gradients. Run the digits together, or space
+                them far apart. Tweak Flapper's default styles, or create your own from scratch.</p>
+
+            </div>
+
+            <div class="section">
+            
+                <h2>Easy-to-Use</h2>
+
+                <p>Simply attach Flapper to any <code>input</code> element anywhere on your page.
+                Flapper will hide the element and replace it with a numeric display. Then, it will listen
+                for <code>change</code> events on the element's value and update the display automatically.</p>
+
+                <pre class="snippet"><code>&lt;input id="display" /&gt;
+
+&lt;script language="JavaScript"&gt;
+    $('#display').flapper(options).val(12345).change();
+&lt;script&gt;</code></pre>
+
+                <p>Any time the input's value changes, just call <code>change()</code> to update the display.
+                Flapper takes care of the rest.</p>
+
+            </div>
+
+            <div class="section">
+
+                <h2>Start Using Flapper</h2>
+
+                <p>Head over to <a href="https://github.com/jayKayEss/Flapper">Flapper's GitHub page</a> to download
+                the code and read the documentation. Flapper is released under the MIT license, which allows
+                redistribution and modification with attribution.</p>
+
+            </div>
+
+        </div>
+
+        <div id="footer">
+
+            <h2>Flapper was created by <a href="http://www.jaykayess.com">Justin Kerr Sheckler</a>. He wants
+                your webpages to be beautiful.</h2>
+
+            <p>This page &copy;2012 Justin Kerr Sheckler.</p>
+
+        </div>
+        
+        <div id="fork-me">
+            <a href="https://github.com/jayKayEss/Flapper">Fork me on GitHub</a>
+        </div>
+    </body>
+</html>

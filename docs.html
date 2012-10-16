@@ -1,0 +1,166 @@
+            table.documentation {
+                width: 90%;
+                border-collapse: collapse;
+                margin: 24px auto;
+            }
+
+            table.documentation thead tr {
+                background: #ddd;
+            }
+
+            table.documentation th {
+                font-size: 12pt;
+                font-weight: normal;
+                padding: 8px;
+                text-align: left;
+            }
+
+            table.documentation th.option_name {
+                width: 15%;
+            }
+
+            table.documentation th.option_value {
+                width: 20%;
+            }
+
+            table.documentation th.option_description {
+                width: 65%;
+            }
+
+            table.documentation tr {
+                border-width: 1px 0px 1px 0px;
+                border-color: #ddd;
+                border-style: solid;
+                background-color: #eee;
+            }
+
+            table.documentation td {
+                padding: 8px 8px 16px 8px;
+                vertical-align: top;
+            }
+
+            <h2>Options</h2>
+
+            <p>The <code>flapper()</code> function accepts an object containing options with the following values:</p>
+
+            <table class="documentation">
+                <thead>
+                    <tr>
+                        <th class="option_name">Option</th>
+                        <th class="option_value">Value</th>
+                        <th class="option_description">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>width</code></td>
+                        <td><code>6</code> (default)</td>
+                        <td>The width of the display in digits. Flapper will
+                            accept any value here, so be careful. If you
+                            want to display multiple pieces of information
+                            on one line, it's probably better to use
+                            multiple flappers.</td>
+                    </tr>
+                    <tr>
+                        <td><code>format</code></td>
+                        <td><em>null</em> (default)</td>
+                        <td>A object with options to send to the numberformatter
+                            plugin. This plugin isn't required unless this
+                            is set.</td>
+                    </tr>
+                    <tr>
+                        <td rowspan=2><code>align</code></td>
+                        <td><code>right</code> (default)</td>
+                        <td>Flapper will right-align the display, and pad its value with spaces
+                            on the left.</td>
+                    </tr>
+                    <tr>
+                        <td><code>left</code></td>
+                        <td>Flapper will left-align the display, and pad its value with spaces
+                            on the right.</td>
+                    </tr>
+                    <tr>
+                        <td><code>padding</code></td>
+                        <td><code>&amp;nbsp;</code> (default)</td>
+                        <td>Flapper uses this value to pad the display. Set this
+                            to <code>0</code> if you're not using the numberformatter
+                            plugin and you want to pad your numbers with
+                            zeros.</td>
+                    </tr>
+                    <tr>
+                        <td><code>digits</code></td>
+                        <td><em>see below</em></td>
+                        <td>A object with options for the digits.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>The digits take these options:</p>
+
+            <table class="documentation">
+                <thead>
+                    <tr>
+                        <th class="option_name">Option</th>
+                        <th class="option_value">Value</th>
+                        <th class="option_description">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>timing</code></td>
+                        <td><code>150</code> (default)</td>
+                        <td>Animation duration in milliseconds.</td>
+                    </tr>
+                    <tr>
+                        <td rowspan=3><code>chars_preset</code></td>
+                        <td><code>num</code> (default)</td>
+                        <td>Flapper will display only numerals
+                            and common punctuation (spaces, commas, decimal points,
+                            colons, negative and dollar signs.)</td>
+                    </tr>
+                    <tr>
+                        <td><code>alpha</code></td>
+                        <td>Flapper will display only spaces and capital
+                            letters.</td>
+                    </tr>
+                    <tr>
+                        <td><code>alphanum</code></td>
+                        <td>Flapper will display all <code>num</code> values
+                            plus capital letters.</td>
+                    </tr>
+                    <tr>
+                        <td><code>chars</code></td>
+                        <td><em>null</em></td>
+                        <td>If you'd like your own custom stack of letters and
+                            numbers, pass an array of characters here. This
+                            value will override the <code>chars_preset</code>
+                            value.</td>
+                    </tr>
+                    <tr>
+                        <td rowspan=3><code>animation</code></td>
+                        <td><code>medium</code> (default)</td>
+                        <td>Flapper uses a very simple, four-frame animation
+                            as each new symbols falls into place. This is probably
+                            the best options for most applications. It
+                            requires the transform plugin.</td>
+                    </tr>
+                    <tr>
+                        <td><code>slow</code></td>
+                        <td>Flapper uses fully-tweened animations to show the
+                            symbols falling into place. This options is best
+                            for large displays with only a handful of digits
+                            (like the header on this page.) It also looks great
+                            with a slower timing value (&ge; 200). It requires the
+                            transform plugin.</td>
+                    </tr>
+                    <tr>
+                        <td><code>fast</code></td>
+                        <td>Flapper uses a minimal two-frame animation to show
+                            each symbol falling into place. Use this if you're
+                            using multiple displays on a page and you find that
+                            the animations looks jerky. This animation looks
+                            best with a fast timing value (&le;100). This
+                            option doesn't require any plugins.</td>
+                    </tr>
+                </tbody>
+            </table>
