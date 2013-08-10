@@ -15,6 +15,9 @@ Flapper will update the display.
     $('#display').flapper().val('1234').change();
   </script>
 
+For best results, you should load <a href="https://github.com/heygrady/transform">`jquery.transform`</a>
+and <a href="https://code.google.com/p/jquery-numberformatter/">`jquery.numberformatter`</a>.
+
 Options
 =======
 
@@ -22,7 +25,7 @@ Flapper accepts a hash of options:
 
     var options = {
       width: 6,             // number of digits
-      format: null,         // options for jquery.format, if loaded
+      format: null,         // options for jquery.numberformatter, if loaded
       align: 'right',       // aligns values to the left or right of display
       padding: '&nbsp;',    // value to use for padding
       chars: null,          // array of characters that Flapper can display
@@ -38,8 +41,7 @@ Flapper accepts a hash of options:
 
 Generally, the only options you will care about are `width` and `chars_preset`. If you want to use a custom
 set of characters, specify `chars` instead of `chars_preset`. Flapper will use the first character in your array
-as the default glyph, so you'll usually want this to be either `&nbsp;` or `0`. You can set `padding` to `0` if
-you'd like to zero-pad numbers, and you're not using `jquery.format`.
+as the default glyph, so you'll usually want this to be either `&nbsp;` or `0`.
 
 The timing params `timing`, `min_timing` and `threshhold` control how fast the glyphs flash by as the display
 changes. You can set `timing` to a higher number if you'd like a slower, more obvious transform effect. You
@@ -47,4 +49,5 @@ can set `min_timing` higher if you'd like the glyphs to flash by more slowly. Yo
 `threshhold`.
 
 If you'd like to add commas to numbers, use money symbols, control the number of decimal points, and other
-fun things, you can load `jquery.format` and pass its options in `format`.
+fun things, you can load `jquery.numberformatter` and pass its options in `format`. You can also set `padding`
+to `0` if you'd like to zero-pad numbers, and you're not using `jquery.numberformatter`.
