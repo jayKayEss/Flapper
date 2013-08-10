@@ -30,8 +30,8 @@ Flapper accepts a hash of options:
       padding: '&nbsp;',    // value to use for padding
       chars: null,          // array of characters that Flapper can display
       chars_preset: 'num',  // 'num', 'hexnum', 'alpha' or 'alphanum'
-      timing: 250,          // the maximum time a digit will be visible
-      min_timing: 10,       // the minimum time a digit will be visible
+      timing: 250,          // the maximum timing for digit animation
+      min_timing: 10,       // the minimum timing for digit animation
       threshhold: 100,      // the point at which Flapper will switch from
                             // simple to detailed animations
       transform: true       // Flapper automatically detects the jquery.transform
