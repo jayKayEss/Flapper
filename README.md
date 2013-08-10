@@ -63,9 +63,9 @@ Theming
 
 You can control Flapper's built-in themes by adding classes to your inputs.
 
-The classes `XS`, `S`, `M`, `L`, `XL` and `XXL` choose Flapper's six size presets.
+The classes `XS`, `S`, `M`, `L`, `XL` and `XXL` choose Flapper's six size presets. The default is `M`.
 
-The classes `light` and `dark` choose Flapper's two color themes.
+The classes `light` and `dark` choose Flapper's two color themes. The default is `dark`.
 
 If you'd like to change Flapper's look, you can define your own theme in CSS. Just give your inputs a class `mytheme`
 and define two extra CSS selectors. Each Flapper digit consists of an outer div with four inner divs. The inner
