@@ -11,7 +11,7 @@
     "version": "1.1.0",
     "author": {
         "name": "Justin Kerr Sheckler",
-        "url": "https://raw.github.com/jayKayEss/Flapper/authors.txt"
+        "url": "https://github.com/jayKayEss/Flapper/blob/master/authors.txt"
     },
     "maintainers": [
         {
@@ -23,12 +23,13 @@
     "licenses": [
         {
             "type": "MIT",
-            "url": "https://raw.github.com/jayKayEss/Flapper/license.txt"
+            "url": "https://github.com/jayKayEss/Flapper/blob/master/license.txt"
         }
     ],
     "bugs": "https://github.com/jayKayEss/Flapper/issues",
     "homepage": "http://lab.jaykayess.com/Flapper/",
-    "docs": "https://github.com/jayKayEss/Flapper/blob/README.md",
+    "demo": "http://lab.jaykayess.com/Flapper/",
+    "docs": "https://github.com/jayKayEss/Flapper/blob/master/README.md",
     "download": "https://github.com/jayKayEss/Flapper/archive/master.zip",
     "dependencies": {
         "jquery": ">=1.8"
