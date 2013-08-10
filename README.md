@@ -44,9 +44,9 @@ set of characters, specify `chars` instead of `chars_preset`. Flapper will use t
 as the default glyph, so you'll usually want this to be either `&nbsp;` or `0`.
 
 Character presets are:
-* `num`: Space, 1-9, 0, dollar sign, decimal point, comma, colon
-* `hexnum`: Space, 1-9, A-F, 0
-* `alpha`: Space, A-Z
+* `num`: `&nbsp;`, 1-9, 0, dollar sign, decimal point, comma, colon
+* `hexnum`: `&nbsp;`, 1-9, A-F, 0
+* `alpha`: `&nbsp;`, A-Z
 * `alphanum`: All of `alpha` and `num`
 
 The timing params `timing`, `min_timing` and `threshhold` control how fast the glyphs flash by as the display
