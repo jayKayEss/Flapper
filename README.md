@@ -38,7 +38,8 @@ Flapper accepts a hash of options:
 
 Generally, the only options you will care about are `width` and `chars_preset`. If you want to use a custom
 set of characters, specify `chars` instead of `chars_preset`. Flapper will use the first character in your array
-as the default glyph, so you'll usually want this to be either `&nbsp;` or `0`.
+as the default glyph, so you'll usually want this to be either `&nbsp;` or `0`. You can set `padding` to `0` if
+you'd like to zero-pad numbers, and you're not using `jquery.format`.
 
 The timing params `timing`, `min_timing` and `threshhold` control how fast the glyphs flash by as the display
 changes. You can set `timing` to a higher number if you'd like a slower, more obvious transform effect. You
