@@ -4,7 +4,7 @@ Flapper
 A jQuery number display
 
 Flapper is a jQuery plugin that replicates the split-flap (or "Solari") displays that used to be common
-in train stations and airports.
+in train stations and airports, and your dad's alarm clock in the 70s.
 
 To use, just attach Flapper to any input on your page. Whenever the input's `change` event is fired,
 Flapper will update the display.
