@@ -13,35 +13,10 @@
                 var $header_display = $('#header_display');
                 $header_display.flapper({
                     width: 7,
-                    digits: {
-                        chars_preset: 'alpha',
-                        animation: 'slow',
-                        timing: 100
-                    }
-                });
-
-                setTimeout(function(){
-                    $header_display.val('FLAPPER').change();
-                    var toggle = true;
-                    setInterval(function(){
-                        if (toggle) {
-                            $header_display.val('FLAPPER').change();
-                        } else {
-                            $header_display.val('').change();
-                        }
-                        toggle = !toggle;
-                    }, 7000);
-                }, 1000);
-
-                $('#size_demo input').flapper({
-                    width: 1,
-                    digits: {
-                        chars: ['9']
-                    }
+                    chars_preset: 'alpha'
                 });
 
                 var $demo_slow = $('#animation_demo input.slow');
-                var $demo_medium = $('#animation_demo input.medium');
                 var $demo_fast = $('#animation_demo input.fast');
 
                 var demo_timing = 500;
@@ -49,39 +24,39 @@
 
                 $demo_slow.flapper({
                     width: 1,
-                    digits: {
-                        chars: demo_chars,
-                        timing: demo_timing,
-                        animation: 'slow'
-                    }
-                });
-                
-                $demo_medium.flapper({
-                    width: 1,
-                    digits: {
-                        chars: demo_chars,
-                        timing: demo_timing,
-                        animation: 'medium'
-                    }
+                    chars: demo_chars,
+                    timing: demo_timing,
                 });
                 
                 $demo_fast.flapper({
                     width: 1,
-                    digits: {
-                        chars: demo_chars,
-                        timing: demo_timing,
-                        animation: 'fast'
-                    }
+                    chars: demo_chars,
+                    timing: demo_timing,
+                    transform: false
                 });
 
-                $('#animation_demo button.play').click(function(){
-                    var $demos = $('#animation_demo input');
+                var $demos = $('#animation_demo input');
+
+                setTimeout(function(){
+                    $header_display.val('FLAPPER').change();
                     $demos.val(9).change();
-                    setTimeout(function(){
-                        $demos.val('').change();
-                    }, 7000);
-                });
+                    var toggle = true;
+                    setInterval(function(){
+                        if (toggle) {
+                            $header_display.val('FLAPPER').change();
+                            $demos.val(9).change();
+                        } else {
+                            $header_display.val('').change();
+                            $demos.val('').change();
+                        }
+                        toggle = !toggle;
+                    }, 5000);
+                }, 1000);
 
+                $('#size_demo input').flapper({
+                    width: 1,
+                    chars: ['9']
+                });
             });
         </script>
         <style type="text/css">
@@ -324,7 +299,7 @@
                 rotated, a new symbol would fall into place. Flapper recreates this effect using CSS transformations.</p>
 
                 <p>Flapper can display words or numbers, with or without formatting. It's ready to use with six sizes,
-                two color themes, and three animation styles. Best of all, it's written entirely in HTML and CSS,
+                two color themes, and two animation styles. Best of all, it's written entirely in HTML and CSS,
                 so you can make it look however you'd like.</p>
 
                 <p>For best results, Flapper requires the <a href="http://code.google.com/p/jquery-numberformatter/">numberformatter</a>
@@ -336,16 +311,14 @@
             <div class="section">
 
                 <div id="animation_demo">
-                    <div class="display slow"><input class="slow L" /><label>slow</label></div>
-                    <div class="display medium"><input class="medium L" /><label>medium</label></div>
-                    <div class="display fast"><input class="fast L" /><label>fast</label></div>
-                    <div class="button"><button class="play">Play</button></div>
+                    <div class="display slow"><input class="slow L" /><label>with<br/>transform</label></div>
+                    <div class="display fast"><input class="fast L" /><label>without<br/>transform</label></div>
                 </div>
                 
-                <h2>Three Animation Effects</h2>
+                <h2>Two Animation Effects</h2>
 
-                <p>Flapper's three animation modes allow you to design with special effects without affecting the performance
-                of your page.  Choose from gorgeous, detailed animations, quick minimalistic animations, or something in-between.</p>
+                <p>Flapper's two animation modes allow you to design with special effects without affecting the performance
+                of your page.  Choose from gorgeous and detailed or quick and minimalistic.</p>
 
             </div>
 

@@ -6,6 +6,9 @@
         this.$ele = $ele;
         this.options = $.extend({}, this.defaults, options);
         
+        // is transform loaded?
+        this.options.transform = this.options.transform && $.transform;
+
         this.$div = $('<div></div>');
         this.$div.attr('class', 'flapper ' + this.$ele.attr('class'));
         this.$ele.hide().after(this.$div);
@@ -23,14 +26,19 @@
             format: null,
             align: 'right',
             padding: '&nbsp;',
-            digits: {}
+            chars: null,
+            chars_preset: 'num',
+            timing: 250,
+            min_timing: 10,
+            threshhold: 100,
+            transform: true
         },
         
         init: function() {
             this.digits = [];
             
             for (i=0; i<this.options.width; i++) {
-                this.digits[i] = new FlapDigit(null, this.options.digits);
+                this.digits[i] = new FlapDigit(null, this.options);
                 this.$div.append(this.digits[i].$ele);
             }
 
@@ -77,7 +85,7 @@
     }
 
     FlapDigit = function($ele, opts) {
-        this.options = $.extend({}, this.defaults, opts);
+        this.options = opts;
 
         if (!this.options.chars) {
             this.options.chars = this.presets[this.options.chars_preset];
@@ -104,12 +112,6 @@
 
     FlapDigit.prototype = {
 
-        defaults: {
-            chars_preset: 'num',
-            timing: 150,
-            animation: 'slow'
-        },
-
         presets: {
             num: ['&nbsp;', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.', ',', ':', '$'],
             hexnum: ['&nbsp;', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', '0'],
@@ -120,7 +122,7 @@
 
         initialize: function() {
             this.$prev.html(this.options.chars[0]);
-            this.$next.hide().html(this.options.chars[0]);
+            this.$next.html(this.options.chars[0]);
         },
 
         htmlTemplate: '<div class="digit"><div class="back top">&nbsp;</div>' +
@@ -128,24 +130,24 @@
             '<div class="front top">&nbsp;</div>' +
             '<div class="front bottom">&nbsp;</div></div>',
 
-        increment: function() {
+        increment: function(speed) {
             var next = this.pos + 1;
             if (next >= this.options.chars.length) {
                 next = 0;
             }
 
-            this.$prev.show().html(this.options.chars[this.pos]);
-            this.$next.hide().html(this.options.chars[next]);
+            this.$prev.html(this.options.chars[this.pos]).show();
 
-            var speed1 = Math.floor(Math.random() * this.options.timing * .4 + this.options.timing * .3);
-            var speed2 = Math.floor(Math.random() * this.options.timing * .1 + this.options.timing * .2);
+            this.$front_bottom.hide();
+            this.$next.html(this.options.chars[next]);
+            
+            var speed1 = Math.floor(Math.random() * speed * .4 + speed * .3);
+            var speed2 = Math.floor(Math.random() * speed * .1 + speed * .2);
 
-            if (this.options.animation == 'fast') {
-                this.animateFast(speed1, speed2);
-            } else if (this.options.animation == 'medium') {
-                this.animateMedium(speed1, speed2);
-            } else {
+            if (speed >= this.options.threshhold && this.options.transform) {
                 this.animateSlow(speed1, speed2);
+            } else {
+                this.animateFast(speed1, speed2);
             }
 
             this.pos = next;
@@ -158,31 +160,8 @@
             this.$front_bottom.transform({ scaleY: 0.0 });
             this.$front_top.transform({ scaleY: 1.0 }).stop().show().animate({ scaleY: 0.0 }, speed1, 'swing', function(){
                 _this.$front_bottom.stop().show().animate({ scaleY: 1.0 }, speed2, 'linear');
+                _this.$front_top.hide().transform({ scaleY: 1.0 });
             });
-        },
-
-        animateMedium: function(speed1, speed2) {
-            var _this = this;
-
-            if (this.timeout) {
-                clearTimeout(this.timeout);
-            }
-
-            this.$back_top.show();
-
-            this.timeout = setTimeout(function(){
-                _this.$front_top.transform({ scaleY: 0.5 });
-                this.timeout = setTimeout(function(){
-                    _this.$front_top.hide().transform({ scaleY: 1.0 });
-                    this.timeout = setTimeout(function(){
-                        _this.$front_bottom.transform({ scaleY: 0.5 }).show();
-
-                        this.timeout = setTimeout(function(){
-                            _this.$front_bottom.transform({ scaleY: 1.0 });
-                        }, speed2/2);
-                    }, speed2/2);
-                }, speed1/2);
-            }, speed1/2);
         },
 
         animateFast: function(speed1, speed2) {
@@ -194,11 +173,10 @@
 
             this.timeout = setTimeout(function(){
                 _this.$front_top.hide();
-                _this.$back_top.show();
 
-                this.timeout = setTimeout(function(){
-                    _this.$back_bottom.hide();
+                _this.timeout = setTimeout(function(){
                     _this.$front_bottom.show();
+
                 }, speed2);
             }, speed1);
         },
@@ -206,19 +184,32 @@
         goToPosition: function(pos) {
             var _this = this;
 
-            if (this.options.timing_timer) {
-                clearInterval(this.options.timing_timer);
-                this.options.timing_timer = null;
+            var frameFunc = function() {
+                if (_this.timing_timer) {
+                    clearInterval(_this.timing_timer);
+                    _this.timing_timer = null;
+                }
+
+                var distance = pos - _this.pos;
+                if (distance <0) {
+                    distance += _this.options.chars.length;
+                }
+
+                if (_this.pos == pos) {
+                    clearInterval(_this.timing_timer);
+                    _this.timing_timer = null;
+                } else {
+                    var duration = Math.floor(
+                            (_this.options.timing - _this.options.min_timing)
+                            / distance + _this.options.min_timing
+                    );
+                    _this.increment(duration);
+                    _this.timing_timer = setTimeout(frameFunc, duration);
+                }
+
             }
 
-            this.options.timing_timer = setInterval(function(){
-                if (_this.pos == pos) {
-                    clearInterval(_this.options.timing_timer);
-                    _this.options.timing_timer = null;
-                } else {
-                    _this.increment();
-                }
-            }, this.options.timing);
+            frameFunc();
         },
 
         goToChar: function(char) {
