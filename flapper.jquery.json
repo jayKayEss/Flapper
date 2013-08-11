@@ -1,12 +1,14 @@
 {
     "name": "flapper",
-    "title": "jQuery Flapper",
+    "title": "Flapper",
     "description": "A split-flap (Solari) display for numbers and words.",
     "keywords": [
         "solari",
         "split-flap",
         "splitflap",
-        "display"
+        "display",
+        "numeric",
+        "retro"
     ],
     "version": "1.1.1",
     "author": {
@@ -28,7 +30,7 @@
     ],
     "bugs": "https://github.com/jayKayEss/Flapper/issues",
     "homepage": "http://lab.jaykayess.com/Flapper/",
-    "demo": "http://lab.jaykayess.com/Flapper/",
+    "demo": "http://lab.jaykayess.com/Flapper/demo.html",
     "docs": "https://github.com/jayKayEss/Flapper/blob/master/README.md",
     "download": "https://github.com/jayKayEss/Flapper/archive/master.zip",
     "dependencies": {

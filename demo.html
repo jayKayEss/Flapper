@@ -1,0 +1,101 @@
+<html>
+    <head>
+        <title>FLAPPER DEMO</title>
+        <link href="css/flapper.css" type="text/css" rel="stylesheet" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script src="transform/dist/jquery.transform-0.9.3.min.js"></script>
+        <script src="src/jquery.flapper.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                    var opts = {
+                        chars_preset: 'alphanum',
+                        align: 'left',
+                        width: 22
+                    };
+
+                    var $displays = $('input.display');
+                    var num = $displays.length;
+
+                    $displays.flapper(opts);
+
+                    var strings = [];
+                    $displays.each(function(){
+                        strings.push('');
+                    });
+
+                    var cursor = 0;
+                    $('input.typesomething').keypress(function(event){
+                        if (event.charCode == 13) {
+                            var txt = $(this).val().toUpperCase();
+                            strings[cursor] = txt;
+
+                            cursor++;
+                            if (cursor > num-1) {
+                                cursor = 0;
+                            }
+
+                            $displays.each(function(i) {
+                                $(this).val(strings[i]).change();
+                                $('input.typesomething').val('');
+                            });
+                        }
+                    });
+            });
+        </script>
+        <style type="text/css">
+            body {
+                font-family: Roboto Condensed;
+                color: #333;
+            }
+
+            .page {
+                width: 1000px;
+                margin: 30px auto 0;
+            }
+
+            h1 {
+                text-align: center;
+                font-size: 64px;
+            }
+
+            .displays {
+            }
+
+            .flapper {
+                margin-bottom: 2px;
+                text-align: center;
+            }
+
+            .inputarea {
+                margin: 24px 0;
+            }
+
+            input.typesomething {
+                font-family: Roboto Condensed;
+                font-size: 24px;
+                width: 500px;
+                padding: 14px;
+                border: 0;
+                background-color: #EEE;
+                color: #333;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="page">
+            <h1>FLAPPER DEMO</h1>
+            <div class="displays">
+                <input class="display M" />
+                <input class="display M" />
+                <input class="display M" />
+                <input class="display M" />
+                <input class="display M" />
+                <input class="display M" />
+            </div>
+            <div class="inputarea">
+                <input class="typesomething" placeholder="Type Something + <ENTER>" maxlength="22" />
+            </div>
+        </div>
+    </body>
+</html>
+
