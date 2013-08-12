@@ -10,11 +10,6 @@
 .flapper .digit {
     position: relative;
     display: inline-block;
-    margin: 0 0 0 1px;
-}
-
-.flapper .digit:first-child {
-    margin: 0;
 }
 
 .flapper .digit div {
@@ -78,6 +73,11 @@
 
 .flapper.XL .digit {
     border-radius: 7px;
+    margin: 0 0 0 4px;
+}
+
+.flapper.XL .digit:first-child {
+    margin: 0;
 }
 
 .flapper.XL .digit div {
@@ -110,6 +110,11 @@
 
 .flapper.L .digit {
     border-radius: 6px;
+    margin: 0 0 0 4px;
+}
+
+.flapper.L .digit:first-child {
+    margin: 0;
 }
 
 .flapper.L .digit div {
@@ -142,6 +147,11 @@
 
 .flapper .digit {
     border-radius: 5px;
+    margin: 0 0 0 4px;
+}
+
+.flapper .digit:first-child {
+    margin: 0;
 }
 
 .flapper .digit div {
@@ -174,6 +184,11 @@
 
 .flapper.S .digit {
     border-radius: 4px;
+    margin: 0 0 0 2px;
+}
+
+.flapper.S .digit:first-child {
+    margin: 0;
 }
 
 .flapper.S .digit div {
@@ -206,6 +221,11 @@
 
 .flapper.XS .digit {
     border-radius: 3px;
+    margin: 0 0 0 2px;
+}
+
+.flapper.XS .digit:first-child {
+    margin: 0;
 }
 
 .flapper.XS .digit div {
@@ -233,42 +253,27 @@
 /* DARK (default) */
 
 .flapper .digit {
-    border: 2px solid #333;
-    background-color: #333;
+    background-color: #222;
+    border: 1px solid #333;
 }
 
 .flapper .digit div {
-    color: white;
+    color: #f0f0f0;
     padding: 0px;
-    background: rgb(0,0,0); /* Old browsers */
-    background: -moz-linear-gradient(-45deg,  rgba(0,0,0,1) 0%, rgba(17,17,17,1) 30%, rgba(0,0,0,1) 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(0,0,0,1)), color-stop(30%,rgba(17,17,17,1)), color-stop(100%,rgba(0,0,0,1))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(-45deg,  rgba(0,0,0,1) 0%,rgba(17,17,17,1) 30%,rgba(0,0,0,1) 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(-45deg,  rgba(0,0,0,1) 0%,rgba(17,17,17,1) 30%,rgba(0,0,0,1) 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(-45deg,  rgba(0,0,0,1) 0%,rgba(17,17,17,1) 30%,rgba(0,0,0,1) 100%); /* IE10+ */
-    background: linear-gradient(135deg,  rgba(0,0,0,1) 0%,rgba(17,17,17,1) 30%,rgba(0,0,0,1) 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    background-color: black;
 }
-
 
 /* LIGHT */
 
 .flapper.light .digit {
-    border: 2px solid #eee;
+    border: 1px solid #ddd;
     background-color: #eee;
 }
 
 .flapper.light .digit div {
-    color: black;
+    color: #222;
     padding: 0px;
-    background: rgb(255,255,255); /* Old browsers */
-    background: -moz-linear-gradient(-45deg,  rgba(255,255,255,1) 0%, rgba(247,247,247,1) 30%, rgba(255,255,255,1) 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(30%,rgba(247,247,247,1)), color-stop(100%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(-45deg,  rgba(255,255,255,1) 0%,rgba(247,247,247,1) 30%,rgba(255,255,255,1) 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(-45deg,  rgba(255,255,255,1) 0%,rgba(247,247,247,1) 30%,rgba(255,255,255,1) 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(-45deg,  rgba(255,255,255,1) 0%,rgba(247,247,247,1) 30%,rgba(255,255,255,1) 100%); /* IE10+ */
-    background: linear-gradient(135deg,  rgba(255,255,255,1) 0%,rgba(247,247,247,1) 30%,rgba(255,255,255,1) 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    background-color: #f6f6f6;
 }
 
 
