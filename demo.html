@@ -5,43 +5,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
         <script src="transform/dist/jquery.transform-0.9.3.min.js"></script>
         <script src="src/jquery.flapper.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function(){
-                    var opts = {
-                        chars_preset: 'alphanum',
-                        align: 'left',
-                        width: 22
-                    };
-
-                    var $displays = $('input.display');
-                    var num = $displays.length;
-
-                    $displays.flapper(opts);
-
-                    var strings = [];
-                    $displays.each(function(){
-                        strings.push('');
-                    });
-
-                    var cursor = 0;
-                    $('input.typesomething').keypress(function(event){
-                        if (event.charCode == 13) {
-                            var txt = $(this).val().toUpperCase();
-                            strings[cursor] = txt;
-
-                            cursor++;
-                            if (cursor > num-1) {
-                                cursor = 0;
-                            }
-
-                            $displays.each(function(i) {
-                                $(this).val(strings[i]).change();
-                                $('input.typesomething').val('');
-                            });
-                        }
-                    });
-            });
-        </script>
+        <script src="src/flapdemo.js"></script>
         <style type="text/css">
             body {
                 font-family: Roboto Condensed;
@@ -55,10 +19,15 @@
 
             h1 {
                 text-align: center;
-                font-size: 64px;
+                font-size: 24px;
             }
 
             .displays {
+                padding: 30px;
+                border: 10px solid #ccc;
+                background-color: #222;
+                border-radius: 30px;
+                box-shadow: 0 0 12px 4px #000 inset;
             }
 
             .flapper {
@@ -70,15 +39,67 @@
                 margin: 24px 0;
             }
 
-            input.typesomething {
+            #typesomething,
+            #showme {
                 font-family: Roboto Condensed;
-                font-size: 24px;
-                width: 500px;
+                font-size: 18px;
                 padding: 14px;
-                border: 0;
                 background-color: #EEE;
                 color: #333;
+                border: 0;
+                height: 170px;
             }
+
+            #typesomething {
+                width: 300px;
+            }
+
+            #showme:hover {
+                background-color: #DDD;
+            }
+
+            #showme:active {
+                background-color: #CCC;
+            }
+
+            div.inline {
+                display: inline-block;
+                vertical-align: bottom;
+            }
+
+            /* Greetz @deadlyicon
+             * https://gist.github.com/2191622
+             */
+            #fork-me {
+                width: 180px;
+                height: 150px;
+                position: absolute;
+                top: 0px;
+                right: 0px;
+                overflow: hidden;
+            }
+
+            #fork-me a {
+                display: block;
+                position: absolute;
+                top: 35px;
+                right: -75px;
+                padding: 0.75em 4em;
+                background: #881c15;
+                -webkit-transform: rotate(40deg);
+                -moz-transform:rotate(40deg);
+                -o-transform:rotate(40deg);
+                -ms-transform:rotate(40deg);
+                color: white !important;
+                font-weight: bold;
+                font-family: helvetica;
+                text-decoration: none;
+                border: 1px solid white;
+                box-shadow: 0 0 10px black;
+                text-shadow: 0 0 10px black;
+                white-space: nowrap;
+            }
+
         </style>
     </head>
     <body>
@@ -93,8 +114,12 @@
                 <input class="display M" />
             </div>
             <div class="inputarea">
-                <input class="typesomething" placeholder="Type Something + <ENTER>" maxlength="22" />
+                <div class="inline"><textarea id="typesomething" placeholder="Type Something Here..." rows="6" cols="20"></textarea></div>
+                <div class="inline"><button id="showme">And Click Here</button></div>
             </div>
+        </div>
+        <div id="fork-me">
+            <a href="https://github.com/jayKayEss/Flapper">Fork me on GitHub</a>
         </div>
     </body>
 </html>
