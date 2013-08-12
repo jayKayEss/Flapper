@@ -25,7 +25,7 @@
             width: 6,
             format: null,
             align: 'right',
-            padding: '&nbsp;',
+            padding: ' ',
             chars: null,
             chars_preset: 'num',
             timing: 250,
@@ -46,9 +46,9 @@
         },
         
         update: function() {
-            var value = this.$ele.val();
+            var value = this.$ele.val().replace(/[\s|\u00a0]/g, ' ');
             var digits = this.getDigits(value);
-
+            
             for (var i=0; i<this.digits.length; i++) {
                 this.digits[i].goToChar(digits[i]);
             }
@@ -113,11 +113,11 @@
     FlapDigit.prototype = {
 
         presets: {
-            num: ['&nbsp;', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.', ',', ':', '$'],
-            hexnum: ['&nbsp;', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', '0'],
-            alpha: ['&nbsp;','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'],
-            alphanum: ['&nbsp;','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
-                '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.', ',', ':', '$'],
+            num: [' ', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
+            hexnum: [' ', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', '0'],
+            alpha: [' ','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'],
+            alphanum: [' ','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
+                '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
         },
 
         initialize: function() {
@@ -144,10 +144,12 @@
             var speed1 = Math.floor(Math.random() * speed * .4 + speed * .3);
             var speed2 = Math.floor(Math.random() * speed * .1 + speed * .2);
 
-            if (speed >= this.options.threshhold && this.options.transform) {
-                this.animateSlow(speed1, speed2);
-            } else {
-                this.animateFast(speed1, speed2);
+            if (speed >= this.options.threshhold) {
+                if (this.options.transform) {
+                    this.animateSlow(speed1, speed2);
+                } else {
+                    this.animateFast(speed1, speed2);
+                }
             }
 
             this.pos = next;
@@ -216,7 +218,8 @@
             var pos = this.options.chars.lastIndexOf(char);
             
             if (pos == -1) {
-                pos = 0;
+                this.options.chars.push(char);
+                pos = this.options.chars.length - 1;
             }
 
             this.goToPosition(pos);
