@@ -37,6 +37,8 @@ Flapper accepts a hash of options:
       transform: true       // Flapper automatically detects the jquery.transform
                             // plugin. Set this to false if you want to force
                             // transform to off
+      on_anim_start: null   // Callback for start of animation
+      on_anim_end: null     // Callback for end of animation
     }
 
 Generally, the only options you will care about are `width` and `chars_preset`. If you want to use a custom
