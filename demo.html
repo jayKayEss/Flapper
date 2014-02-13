@@ -67,6 +67,20 @@
                 vertical-align: bottom;
             }
 
+            div.activity {
+                width: 12px;
+                height: 12px;
+                border-radius: 6px;
+                background-color: #250000;
+                position: relative;
+                top: 33px;
+                left: -15px;
+            }
+
+            div.activity.active {
+                background-color: #f00;
+            }
+
             /* Greetz @deadlyicon
              * https://gist.github.com/2191622
              */
@@ -106,12 +120,12 @@
         <div class="page">
             <h1>FLAPPER DEMO</h1>
             <div class="displays">
-                <input class="display M" />
-                <input class="display M" />
-                <input class="display M" />
-                <input class="display M" />
-                <input class="display M" />
-                <input class="display M" />
+                <div class="activity"></div><input class="display M" />
+                <div class="activity"></div><input class="display M" />
+                <div class="activity"></div><input class="display M" />
+                <div class="activity"></div><input class="display M" />
+                <div class="activity"></div><input class="display M" />
+                <div class="activity"></div><input class="display M" />
             </div>
             <div class="inputarea">
                 <div class="inline"><textarea id="typesomething" placeholder="Type Something Here..." rows="6" cols="20"></textarea></div>

@@ -42,10 +42,22 @@ FlapBuffer.prototype = {
 var FlapDemo = function(display_selector, input_selector, click_selector) {
     var _this = this;
 
+    var onAnimStart = function(e) {
+        var $display = $(e.target);
+        $display.prevUntil('.flapper', '.activity').addClass('active');
+    };
+
+    var onAnimEnd = function(e) {
+        var $display = $(e.target);
+        $display.prevUntil('.flapper', '.activity').removeClass('active');
+    };
+
     this.opts = {
         chars_preset: 'alphanum',
         align: 'left',
         width: 20,
+        on_anim_start: onAnimStart,
+        on_anim_end: onAnimEnd
     };
 
     this.timers = [];

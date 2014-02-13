@@ -31,15 +31,30 @@
             timing: 250,
             min_timing: 10,
             threshhold: 100,
-            transform: true
+            transform: true,
+            on_anim_start: null,
+            on_anim_end: null
         },
         
         init: function() {
+            var _this = this;
             this.digits = [];
             
             for (i=0; i<this.options.width; i++) {
                 this.digits[i] = new FlapDigit(null, this.options);
                 this.$div.append(this.digits[i].$ele);
+            }
+
+            this.$div.on('digitAnimEnd', function(e){
+                _this.onDigitAnimEnd(e);
+            });
+
+            if (this.options.on_anim_start) {
+                this.$div.on('animStart', this.options.on_anim_start);
+            }
+
+            if (this.options.on_anim_end) {
+                this.$div.on('animEnd', this.options.on_anim_end);
             }
 
             this.update();
@@ -48,9 +63,20 @@
         update: function() {
             var value = this.$ele.val().replace(/[\s|\u00a0]/g, ' ');
             var digits = this.getDigits(value);
+            this.digitsFinished = 0;
             
+            this.$div.trigger('animStart');
+
             for (var i=0; i<this.digits.length; i++) {
                 this.digits[i].goToChar(digits[i]);
+            }
+        },
+
+        onDigitAnimEnd: function(e) {
+            this.digitsFinished++;
+
+            if (this.digitsFinished == this.options.width) {
+                this.$div.trigger('animEnd');
             }
         },
 
@@ -200,6 +226,7 @@
                 if (_this.pos == pos) {
                     clearInterval(_this.timing_timer);
                     _this.timing_timer = null;
+                    _this.$ele.trigger("digitAnimEnd");
                 } else {
                     var duration = Math.floor(
                             (_this.options.timing - _this.options.min_timing)
