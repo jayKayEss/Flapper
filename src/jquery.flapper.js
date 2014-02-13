@@ -25,16 +25,19 @@
             width: 6,
             format: null,
             align: 'right',
-            padding: '&nbsp;',
+            padding: ' ',
             chars: null,
             chars_preset: 'num',
             timing: 250,
             min_timing: 10,
             threshhold: 100,
-            transform: true
+            transform: true,
+            on_anim_start: null,
+            on_anim_end: null
         },
         
         init: function() {
+            var _this = this;
             this.digits = [];
             
             for (i=0; i<this.options.width; i++) {
@@ -42,15 +45,38 @@
                 this.$div.append(this.digits[i].$ele);
             }
 
+            this.$div.on('digitAnimEnd', function(e){
+                _this.onDigitAnimEnd(e);
+            });
+
+            if (this.options.on_anim_start) {
+                this.$div.on('animStart', this.options.on_anim_start);
+            }
+
+            if (this.options.on_anim_end) {
+                this.$div.on('animEnd', this.options.on_anim_end);
+            }
+
             this.update();
         },
         
         update: function() {
-            var value = this.$ele.val();
+            var value = this.$ele.val().replace(/[\s|\u00a0]/g, ' ');
             var digits = this.getDigits(value);
+            this.digitsFinished = 0;
+            
+            this.$div.trigger('animStart');
 
             for (var i=0; i<this.digits.length; i++) {
                 this.digits[i].goToChar(digits[i]);
+            }
+        },
+
+        onDigitAnimEnd: function(e) {
+            this.digitsFinished++;
+
+            if (this.digitsFinished == this.options.width) {
+                this.$div.trigger('animEnd');
             }
         },
 
@@ -113,11 +139,11 @@
     FlapDigit.prototype = {
 
         presets: {
-            num: ['&nbsp;', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.', ',', ':', '$'],
-            hexnum: ['&nbsp;', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', '0'],
-            alpha: ['&nbsp;','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'],
-            alphanum: ['&nbsp;','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
-                '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.', ',', ':', '$'],
+            num: [' ', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
+            hexnum: [' ', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', '0'],
+            alpha: [' ','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'],
+            alphanum: [' ','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
+                '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
         },
 
         initialize: function() {
@@ -144,10 +170,12 @@
             var speed1 = Math.floor(Math.random() * speed * .4 + speed * .3);
             var speed2 = Math.floor(Math.random() * speed * .1 + speed * .2);
 
-            if (speed >= this.options.threshhold && this.options.transform) {
-                this.animateSlow(speed1, speed2);
-            } else {
-                this.animateFast(speed1, speed2);
+            if (speed >= this.options.threshhold) {
+                if (this.options.transform) {
+                    this.animateSlow(speed1, speed2);
+                } else {
+                    this.animateFast(speed1, speed2);
+                }
             }
 
             this.pos = next;
@@ -198,6 +226,7 @@
                 if (_this.pos == pos) {
                     clearInterval(_this.timing_timer);
                     _this.timing_timer = null;
+                    _this.$ele.trigger("digitAnimEnd");
                 } else {
                     var duration = Math.floor(
                             (_this.options.timing - _this.options.min_timing)
@@ -212,11 +241,12 @@
             frameFunc();
         },
 
-        goToChar: function(char) {
-            var pos = this.options.chars.lastIndexOf(char);
+        goToChar: function(c) {
+            var pos = $.inArray(c, this.options.chars);
             
             if (pos == -1) {
-                pos = 0;
+                this.options.chars.push(c);
+                pos = this.options.chars.length - 1;
             }
 
             this.goToPosition(pos);

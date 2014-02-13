@@ -20,7 +20,7 @@
                 var $demo_fast = $('#animation_demo input.fast');
 
                 var demo_timing = 500;
-                var demo_chars = ['&nbsp;','0','1','2','3','4','5','6','7','8','9'];
+                var demo_chars = [' ','0','1','2','3','4','5','6','7','8','9'];
 
                 $demo_slow.flapper({
                     width: 1,
@@ -40,7 +40,7 @@
                 setTimeout(function(){
                     $header_display.val('FLAPPER').change();
                     $demos.val(9).change();
-                    var toggle = true;
+                    var toggle = false;
                     setInterval(function(){
                         if (toggle) {
                             $header_display.val('FLAPPER').change();
