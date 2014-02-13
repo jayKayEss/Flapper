@@ -242,7 +242,7 @@
         },
 
         goToChar: function(c) {
-            var pos = this.options.chars.lastIndexOf(c);
+            var pos = $.inArray(c, this.options.chars);
             
             if (pos == -1) {
                 this.options.chars.push(c);
