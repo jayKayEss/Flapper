@@ -214,11 +214,11 @@
             frameFunc();
         },
 
-        goToChar: function(char) {
-            var pos = this.options.chars.lastIndexOf(char);
+        goToChar: function(c) {
+            var pos = this.options.chars.lastIndexOf(c);
             
             if (pos == -1) {
-                this.options.chars.push(char);
+                this.options.chars.push(c);
                 pos = this.options.chars.length - 1;
             }
 
