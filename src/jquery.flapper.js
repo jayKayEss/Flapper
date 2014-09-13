@@ -33,7 +33,8 @@
             threshhold: 100,
             transform: true,
             on_anim_start: null,
-            on_anim_end: null
+            on_anim_end: null,
+            cycleInterval: null,
         },
         
         init: function() {
@@ -58,6 +59,10 @@
             }
 
             this.update();
+
+            if (this.options.cycleInterval) {
+                this.startCycle();
+            }
         },
         
         update: function() {
@@ -108,6 +113,16 @@
 
             return digits;
         },
+
+        startCycle: function() {
+            var self = this;
+            setInterval(function() {
+                for (var i=0; i<self.digits.length; i++) {
+                    self.digits[i].goToNextPosition();
+                }
+            }, this.options.cycleInterval);
+        },
+
     }
 
     FlapDigit = function($ele, opts) {
@@ -239,6 +254,15 @@
             }
 
             frameFunc();
+        },
+
+        goToNextPosition: function() {
+            var next = this.pos + 1;
+            if (next >= this.options.chars.length) {
+                next = 0;
+            }
+
+            this.goToPosition(next);
         },
 
         goToChar: function(c) {

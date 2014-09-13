@@ -56,8 +56,7 @@
     border-radius: 6px;
 }
 
-.flapper.XXL .digit,
-.flapper.XXL .digit div {
+.flapper.XXL .digit {
     height: 128px;
     width: 96px;
     font-size: inherit;
@@ -65,11 +64,11 @@
 }
 
 .flapper.XXL .digit .top {
-    clip: rect(0px, 96px, 64px, 0px);
+    clip: rect(0px, auto, 64px, 0px);
 }
 
 .flapper.XXL .digit .bottom {
-    clip: rect(65px, 96px, 128px, 0px); 
+    clip: rect(65px, auto, 128px, 0px); 
 }
 
 /* XL 72x96 */
@@ -93,8 +92,7 @@
     border-radius: 5px;
 }
 
-.flapper.XL .digit,
-.flapper.XL .digit div {
+.flapper.XL .digit {
     height: 96px;
     width: 72px;
     font-size: inherit;
@@ -102,11 +100,11 @@
 }
 
 .flapper.XL .digit .top {
-    clip: rect(0px, 72px, 47px, 0px);
+    clip: rect(0px, auto, 47px, 0px);
 }
 
 .flapper.XL .digit .bottom {
-    clip: rect(48px, 72px, 96px, 0px); 
+    clip: rect(48px, auto, 96px, 0px); 
 }
 
 /* L 54x72 */
@@ -130,8 +128,7 @@
     border-radius: 4px;
 }
 
-.flapper.L .digit,
-.flapper.L .digit div {
+.flapper.L .digit {
     height: 72px;
     width: 54px;
     font-size: inherit;
@@ -139,11 +136,11 @@
 }
 
 .flapper.L .digit .top {
-    clip: rect(0px, 54px, 35px, 0px);
+    clip: rect(0px, auto, 35px, 0px);
 }
 
 .flapper.L .digit .bottom {
-    clip: rect(36px, 54px, 72px, 0px); 
+    clip: rect(36px, auto, 72px, 0px); 
 }
 
 /* M 40x54 (default) */
@@ -167,20 +164,27 @@
     border-radius: 3px;
 }
 
-.flapper .digit,
-.flapper .digit div {
+.flapper .digit {
     height: 54px;
     width: 40px;
     font-size: inherit;
     line-height: inherit;
 }
 
+.flapper .digit div {
+    height: 100%;
+    width: 100%;
+    font-size: inherit;
+    line-height: inherit;
+    width: inherit;
+}
+
 .flapper .digit .top {
-    clip: rect(0px, 40px, 26px, 0px);
+    clip: rect(0px, auto, 26px, 0px);
 }
 
 .flapper .digit .bottom {
-    clip: rect(27px, 40px, 54px, 0px); 
+    clip: rect(27px, auto, 54px, 0px); 
 }
 
 /* S 30x40 */
@@ -204,8 +208,7 @@
     border-radius: 2px;
 }
 
-.flapper.S .digit,
-.flapper.S .digit div {
+.flapper.S .digit {
     height: 40px;
     width: 30px;
     font-size: inherit;
@@ -213,11 +216,11 @@
 }
 
 .flapper.S .digit .top {
-    clip: rect(0px, 30px, 19px, 0px);
+    clip: rect(0px, auto, 19px, 0px);
 }
 
 .flapper.S .digit .bottom {
-    clip: rect(20px, 30px, 40px, 0px); 
+    clip: rect(20px, auto, 40px, 0px); 
 }
 
 /* XS 24x30 */
@@ -241,8 +244,7 @@
     border-radius: 1px;
 }
 
-.flapper.XS .digit,
-.flapper.XS .digit div {
+.flapper.XS .digit {
     height: 30px;
     width: 24px;
     font-size: inherit;
@@ -250,11 +252,17 @@
 }
 
 .flapper.XS .digit .top {
-    clip: rect(0px, 24px, 14px, 0px);
+    clip: rect(0px, auto, 14px, 0px);
 }
 
 .flapper.XS .digit .bottom {
-    clip: rect(15px, 24px, 30px, 0px); 
+    clip: rect(15px, auto, 30px, 0px); 
+}
+
+/* WORDS MODE OVERRIDE */
+
+.flapper.words .digit {
+    width: 100%;
 }
 
 /* THEME STYLES */
