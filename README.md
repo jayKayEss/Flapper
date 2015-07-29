@@ -103,3 +103,8 @@ Flapper's size presets work like this:
 `.flapper.S .digit div.bottom` clips the bottom half of each digit, minus one pixel at the top (the horizontal stripe.)
 
 Defining new sizes is a little tricky, but if you look a the src code you'll get the hang of it.
+
+Demo
+====
+
+You can see Flapper in action at: http://www.jaykayess.com/flapper/
