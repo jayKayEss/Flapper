@@ -1,5 +1,7 @@
 (function($) {
 
+    var prependToId = 'Flap', flappers = {};
+
     var Flapper = function($ele, options) {
         var _this = this;
         this.id = Math.floor(Math.random() * 1000) + 1;
@@ -16,6 +18,10 @@
         this.$ele.bind('change.flapper', function(){
             _this.update();
         });
+        
+        var flapperId = this.$ele[0].id || prependToId + this.id;
+        this.$ele.attr('id', flapperId);
+        flappers[flapperId] = this;
         
         this.init();
     }
@@ -107,6 +113,33 @@
             }
 
             return digits;
+        },
+        
+        addDigit: function(){
+            var flapDigit = new FlapDigit(null, this.options);
+            if (this.options.align === 'left') {
+                this.digits.push(flapDigit);
+                this.$div.append(flapDigit.$ele);
+            }
+            else{
+                this.digits.unshift(flapDigit);
+                this.$div.prepend(flapDigit.$ele);
+            }
+            this.options.width = this.digits.length;
+            return flapDigit;
+        },
+        
+        removeDigit: function(){
+            var flapDigit = (this.options.align === 'left') ? this.digits.pop() : this.digits.shift();
+            flapDigit.$ele.remove();
+            this.options.width = this.digits.length;
+        },
+        
+        performAction: function(action){
+            switch(action){
+                case 'add-digit': this.addDigit(); break;
+                case 'remove-digit': this.removeDigit(); break;
+            }
         }
     }
 
@@ -253,9 +286,13 @@
         }
     };
 
-	$.fn.flapper = function(options) {
+    $.fn.flapper = function(arg) {
         this.each(function(){
-            new Flapper($(this), options);
+            if(!(typeof arg === 'string' || arg instanceof String)) return new Flapper($(this), arg);
+            
+            if(this.id && flappers.hasOwnProperty(this.id)){
+                flappers[this.id].performAction(arg);
+            }
         });
 
         return this;
