@@ -1,6 +1,9 @@
 Flapper
 =======
 
+![Flapper Example](/img/flapper.gif?raw=true "Flapper in Action")
+
+
 A jQuery number display
 
 Flapper is a jQuery plugin that replicates the split-flap (or "Solari") displays that used to be common
