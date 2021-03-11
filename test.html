@@ -8,12 +8,12 @@
         <script src="src/jquery.flapper.js"></script>
         <script language="javascript">
             $(document).ready(function() {
-                $('.flapper.digital').flapper({
+                $('input.flapper.digital').flapper({
                     width: 6,
                     cycleInterval: 1000,
                 });
 
-                $('.flapper.words').flapper({
+                $('input.flapper.words').flapper({
                     width: 1,
                     cycleInterval: 1000,
                     chars: [' ', 'YES', 'NO', 'MAYBE'],
@@ -23,6 +23,7 @@
     </head>
     <body>
         <div style="display: inline-block; width: 48%;">
+            <div class="flapper SM">Digital</div>
             <input class="flapper XXL digital" />
             <input class="flapper XL digital" />
             <input class="flapper L digital" />
@@ -31,6 +32,7 @@
             <input class="flapper XS digital" />
         </div>
         <div style="display: inline-block; width: 48%;">
+            <div class="flapper SM">Words</div>
             <input class="flapper XXL words" />
             <input class="flapper XL words" />
             <input class="flapper L words" />
