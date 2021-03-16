@@ -1,3 +1,5 @@
+For a React version see [react-split-flap-effect](https://www.npmjs.com/package/react-split-flap-effect)
+
 Flapper
 =======
 
