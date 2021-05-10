@@ -1,6 +1,6 @@
 {
   "name": "jquery-flapper",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "A split-flap (Solari) display for numbers and words using jQuery",
   "main": "src/jquery.flapper.js",
   "scripts": {
