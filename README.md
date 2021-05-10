@@ -3,6 +3,9 @@ For a React version see [react-split-flap-effect](https://www.npmjs.com/package/
 Flapper
 =======
 
+[Project Homepage](https://jaykayess.com/Flapper)
+[Live Demo](https://jaykayess.com/Flapper/demo.html)
+
 A jQuery number display
 
 Flapper is a jQuery plugin that replicates the split-flap (or "Solari") displays that used to be common
