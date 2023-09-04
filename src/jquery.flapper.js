@@ -86,6 +86,10 @@
         },
 
         getDigits: function(val, length) {
+            if(this.options.width === 1 && val.length  > 1){
+                return [ val + '' ];
+            }
+            
             var strval = val + '';
 
             if (this.options.format) {
